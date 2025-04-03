@@ -763,7 +763,7 @@
                     <p class="gallery-caption">Moon River</p>
                 </div>
 
-                <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo michael-mininberg austin-bradford alisen-mctague genevieve-curie">
+                <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo michael-mininberg austin-bradford alisen-mctague genevieve-currie">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/1sagfs.jpg">
                         <img src="https://files.catbox.moe/1sagfs.jpg" alt="Grandma Droniak">
                     </div>
@@ -771,13 +771,13 @@
                 </div>
 
                 <div class="gallery-entry" data-members="michael-mininberg">
-                    <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/wg9vzm.JPG">
-                        <img src="https://files.catbox.moe/wg9vzm.JPG" muted preload="metadata" alt="My Way"></img>
+                    <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/wg9vzm.JPG">
+                        <img src="https://files.catbox.moe/wg9vzm.JPG" alt="My Way"></img>
                     </div>
                     <p class="gallery-caption">My Way</p>
                 </div>
 
-                <div class="gallery-entry" data-members="genevieve-curie">
+                <div class="gallery-entry" data-members="genevieve-currie">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/9321mg.mp4">
                         <video src="https://files.catbox.moe/9321mg.mp4" muted preload="metadata" alt="Danny Boy"></video>
                     </div>
@@ -829,73 +829,70 @@
     </div>
 
 
-    <script>
+        <script>
         document.addEventListener('DOMContentLoaded', function() {
             const navButtons = document.querySelectorAll('.nav-button');
             const sections = document.querySelectorAll('.section');
             const allGalleryEntries = document.querySelectorAll('#gallery .gallery-entry'); // Get all original gallery entries
+            const galleryModal = document.getElementById('gallery-modal');
+            const galleryModalContent = document.getElementById('gallery-modal-content');
+            const galleryModalClose = galleryModal.querySelector('.modal-close');
+            const memberModal = document.getElementById('member-modal');
+            const memberModalDetailsContainer = document.getElementById('member-modal-details');
+            const memberModalGalleryGrid = document.getElementById('member-modal-gallery-grid');
+            const memberModalClose = memberModal.querySelector('.modal-close');
+            const teamMembers = document.querySelectorAll('.team-member');
 
-            // --- Section Switching Logic (existing) ---
+
+            // --- Section Switching Logic ---
             function switchSection(targetId) {
-                // ... (keep existing switchSection logic)
                 let foundActive = false;
                 navButtons.forEach(btn => {
                     const isActive = btn.getAttribute('data-section') === targetId;
                     btn.classList.toggle('active', isActive);
                     if (isActive) foundActive = true;
                 });
+                // Default to home if no active button somehow (e.g., bad initial state)
                 if (!foundActive && navButtons.length > 0) {
                     navButtons[0].classList.add('active');
                     targetId = navButtons[0].getAttribute('data-section');
                 }
                 sections.forEach(section => {
                     const isActive = section.id === targetId;
+                    // Apply classes for transition and visibility control
                     section.classList.toggle('active', isActive);
                     section.classList.toggle('inactive', !isActive);
+
+                     // Reset scroll position for the section becoming active
+                    // if (isActive) {
+                    //     section.scrollTop = 0; // Optional: Scroll to top when section becomes active
+                    // }
                 });
             }
 
-            let initialActiveSectionId = 'home';
-            const initiallyActiveButton = document.querySelector('.nav-button.active');
-            if (initiallyActiveButton) {
-                initialActiveSectionId = initiallyActiveButton.getAttribute('data-section');
-            }
-            switchSection(initialActiveSectionId); // Call on load
-
-            navButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-section');
-                    switchSection(targetId);
-                });
-            });
-
-            // --- Gallery Modal Logic (existing, slightly adapted) ---
-            const galleryModal = document.getElementById('gallery-modal');
-            const galleryModalContent = document.getElementById('gallery-modal-content');
-            const galleryModalClose = galleryModal.querySelector('.modal-close');
-
-            // Function to open the main gallery modal
+            // --- Gallery Modal Logic ---
             function openGalleryModal(mediaItemElement) {
                  const type = mediaItemElement.getAttribute('data-type');
                  const src = mediaItemElement.getAttribute('data-src');
-                 const captionElement = mediaItemElement.nextElementSibling;
+                 const captionElement = mediaItemElement.nextElementSibling; // Get the <p> tag after the media item div
                  const title = captionElement ? captionElement.textContent.trim() : '';
+                 // Try finding the actual media tag (img/video) inside the container for alt text
                  const altTextSourceElement = mediaItemElement.querySelector('img, video');
-                 const altText = altTextSourceElement?.getAttribute('alt') || title || 'Gallery item';
+                 const altText = altTextSourceElement?.getAttribute('alt') || title || 'Gallery item'; // Use alt, then caption, then default
 
-                 galleryModalContent.innerHTML = ''; // Clear previous
+                 galleryModalContent.innerHTML = ''; // Clear previous content
 
                  if (type === 'image') {
                      const img = document.createElement('img');
                      img.src = src;
-                     img.alt = altText;
+                     img.alt = altText; // Use determined alt text
                      galleryModalContent.appendChild(img);
                  } else if (type === 'video') {
                      const video = document.createElement('video');
                      video.src = src;
                      video.controls = true;
-                     video.autoplay = true;
-                     video.setAttribute('aria-label', altText);
+                     video.autoplay = true; // Autoplay when opened in modal
+                     video.setAttribute('aria-label', altText); // Use determined alt text
                      galleryModalContent.appendChild(video);
                  }
 
@@ -903,122 +900,140 @@
                  document.body.style.overflow = 'hidden'; // Prevent body scroll
             }
 
-            // Add listeners to ORIGINAL gallery items
+            function closeGalleryModal() {
+                galleryModal.classList.remove('active');
+                // Stop any videos playing in the modal BEFORE clearing content
+                const videos = galleryModalContent.querySelectorAll('video');
+                videos.forEach(video => {
+                    if (!video.paused) {
+                        video.pause();
+                    }
+                    video.removeAttribute('src'); // Remove src to stop potential background loading
+                    video.load(); // Clobber the video state
+                });
+                galleryModalContent.innerHTML = ''; // Clear content AFTER stopping video
+                // Restore body scroll ONLY if the member modal isn't also active
+                if (!memberModal.classList.contains('active')) {
+                    document.body.style.overflow = '';
+                }
+            }
+
+            // --- Member Modal Logic ---
+            function closeMemberModal() {
+                memberModal.classList.remove('active');
+                 // Restore body scroll ONLY if the gallery modal isn't also active
+                if (!galleryModal.classList.contains('active')) {
+                   document.body.style.overflow = '';
+                }
+                // No need to clear content here, it's cleared/repopulated on opening
+            }
+
+            // --- Event Listeners ---
+
+            // Initial Section Setup
+            let initialActiveSectionId = 'home';
+            const initiallyActiveButton = document.querySelector('.nav-button.active');
+            if (initiallyActiveButton) {
+                initialActiveSectionId = initiallyActiveButton.getAttribute('data-section');
+            }
+            switchSection(initialActiveSectionId); // Call on load to set initial state
+
+            // Navigation Button Clicks
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-section');
+                    switchSection(targetId);
+                });
+            });
+
+            // Original Gallery Item Clicks (in the main gallery section)
             document.querySelectorAll('#gallery .gallery-media-item').forEach(item => {
                 item.addEventListener('click', function() {
                     openGalleryModal(this); // Pass the clicked element
                 });
             });
 
-            // Function to close the gallery modal
-            function closeGalleryModal() {
-                galleryModal.classList.remove('active');
-                document.body.style.overflow = ''; // Restore scroll
-
-                // Stop any videos playing in the modal
-                const videos = galleryModalContent.querySelectorAll('video');
-                videos.forEach(video => {
-                    video.pause();
-                    video.currentTime = 0; // Reset video
-                });
-                 galleryModalContent.innerHTML = ''; // Clear content on close
-            }
-
-            // Gallery modal close listeners
+            // Gallery Modal Close Buttons
             galleryModalClose.addEventListener('click', closeGalleryModal);
             galleryModal.addEventListener('click', function(e) {
-                // Close only if clicking the modal background itself
                 if (e.target === galleryModal) {
                     closeGalleryModal();
                 }
             });
 
-            // --- NEW: Member Modal Logic ---
-            const teamMembers = document.querySelectorAll('.team-member');
-            const memberModal = document.getElementById('member-modal');
-            const memberModalDetailsContainer = document.getElementById('member-modal-details');
-            const memberModalGalleryGrid = document.getElementById('member-modal-gallery-grid');
-            const memberModalClose = memberModal.querySelector('.modal-close');
-
+            // Team Member Card Clicks (to open Member Modal)
             teamMembers.forEach(member => {
                 member.addEventListener('click', function() {
                     const memberId = this.getAttribute('data-member-id');
-                    if (!memberId) return; // Skip if no ID
+                    if (!memberId) return;
 
-                    // --- 1. Populate Member Details ---
-                    memberModalDetailsContainer.innerHTML = ''; // Clear previous details
-
-                    // Clone essential elements to avoid breaking original layout/styles
+                    // 1. Populate Member Details
+                    memberModalDetailsContainer.innerHTML = '';
                     const picture = this.querySelector('.profile-picture').cloneNode(true);
                     const name = this.querySelector('.member-name').cloneNode(true);
                     const title = this.querySelector('.member-title').cloneNode(true);
                     const bio = this.querySelector('.member-bio').cloneNode(true);
-
-                    // Append cloned elements to the modal details container
                     memberModalDetailsContainer.appendChild(picture);
                     memberModalDetailsContainer.appendChild(name);
                     memberModalDetailsContainer.appendChild(title);
                     memberModalDetailsContainer.appendChild(bio);
 
-                    // --- 2. Populate Member's Mini-Gallery ---
-                    memberModalGalleryGrid.innerHTML = ''; // Clear previous gallery items
+                    // 2. Populate Member's Mini-Gallery
+                    memberModalGalleryGrid.innerHTML = '';
                     let foundItems = false;
 
                     allGalleryEntries.forEach(entry => {
                         const members = entry.getAttribute('data-members');
-                        // Check if the memberId is in the space-separated list
                         if (members && members.split(' ').includes(memberId)) {
                             foundItems = true;
-                            const clonedEntry = entry.cloneNode(true); // Deep clone the entire entry
-
-                            // IMPORTANT: Add click listener to the cloned media item
+                            const clonedEntry = entry.cloneNode(true);
                             const clonedMediaItem = clonedEntry.querySelector('.gallery-media-item');
+
                             if (clonedMediaItem) {
-                                clonedMediaItem.addEventListener('click', function() {
-                                    // Open the ORIGINAL gallery modal when clicked
-                                    openGalleryModal(this);
+                                // *** THIS IS THE KEY CHANGE ***
+                                // Add click listener to the *cloned* media item inside the member modal
+                                clonedMediaItem.addEventListener('click', function(event) {
+                                    event.stopPropagation(); // Prevent click bubbling to modal background
+                                    closeMemberModal();     // Close the member modal first
+                                    openGalleryModal(this); // Then open the main gallery modal
                                 });
                             }
-
                             memberModalGalleryGrid.appendChild(clonedEntry);
                         }
                     });
 
-                     // Optional: Display a message if no items are found
                      if (!foundItems) {
                          memberModalGalleryGrid.innerHTML = '<p style="text-align:center; color:#777; grid-column: 1 / -1;">No gallery items tagged for this member yet.</p>';
                      }
 
-
-                    // --- 3. Show Member Modal ---
+                    // 3. Show Member Modal
                     memberModal.classList.add('active');
                     document.body.style.overflow = 'hidden'; // Prevent body scroll
                 });
             });
 
-            // Function to close the member modal
-            function closeMemberModal() {
-                memberModal.classList.remove('active');
-                document.body.style.overflow = ''; // Restore scroll
-                // No need to clear content here, it's cleared when opening
-            }
-
-            // Member modal close listeners
+            // Member Modal Close Buttons
             memberModalClose.addEventListener('click', closeMemberModal);
             memberModal.addEventListener('click', function(e) {
-                // Close only if clicking the modal background itself
                 if (e.target === memberModal) {
                     closeMemberModal();
                 }
             });
 
-            // --- Global Keydown Listener for Modals ---
+            // Global Keydown Listener for Escape Key
             document.addEventListener('keydown', function(e) {
                  if (e.key === 'Escape') {
-                     if (galleryModal.classList.contains('active')) {
+                     // Check which modal is active (or potentially both briefly during transition)
+                     let galleryWasActive = galleryModal.classList.contains('active');
+                     let memberWasActive = memberModal.classList.contains('active');
+
+                     if (galleryWasActive) {
                          closeGalleryModal();
                      }
-                     if (memberModal.classList.contains('active')) {
+                     // Close member modal only if it was the primary one open,
+                     // or if the gallery modal wasn't the one just closed by Escape.
+                     // This prevents Escape closing both if gallery was opened from member modal.
+                     if (memberWasActive && !galleryWasActive) {
                          closeMemberModal();
                      }
                  }
