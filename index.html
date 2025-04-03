@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barlow CTM</title>
+    <style>
+        /* GLOBAL STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 15px;
+            color: #1a3c6e;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* NAVIGATION */
+        .nav-bar {
+            background-color: #1a3c6e;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 5px;
+        }
+
+        .nav-button.active {
+            border-bottom: 2px solid white;
+        }
+
+        /* SECTION STYLES */
+        .section {
+            min-height: 100vh;
+            padding-top: 80px; /* Base padding */
+            position: absolute;
+            width: 100%;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Add opacity transition */
+            background-color: #f5f5f5;
+            left: 0;
+            opacity: 0; /* Start sections as transparent */
+            pointer-events: none; /* Prevent interaction when inactive */
+        }
+
+        .section.active {
+            transform: translateX(0);
+            opacity: 1; /* Fade in */
+            z-index: 1;
+            position: relative; /* Allow scrolling within active section */
+            pointer-events: auto; /* Allow interaction */
+        }
+
+        .section.inactive {
+            transform: translateX(100%);
+            opacity: 0; /* Stay faded out */
+            z-index: 0;
+            position: absolute; /* Keep out of flow */
+            pointer-events: none; /* Prevent interaction */
+        }
+
+        /* Adjust initial state for home specifically if needed */
+        #home {
+            opacity: 1; /* Make initial section visible */
+            pointer-events: auto;
+            position: relative;
+        }
+         #home.inactive { /* Ensure home follows inactive rules when not active */
+             transform: translateX(100%);
+             opacity: 0;
+             position: absolute;
+             pointer-events: none;
+         }
+
+
+        /* HOME SECTION */
+        #home {
+            text-align: center;
+            padding-top: 100px; /* Keep specific padding if needed */
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1a3c6e;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .home-image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 30px auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        max-width: 600px;
+}
+
+        /* MEET THE TEAM SECTION */
+        #team {
+            background-color: white;
+        }
+
+        .team-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #1a3c6e;
+        }
+
+        .member-name {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .member-title {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .member-bio {
+            font-size: 0.9rem;
+        }
+
+        /* GALLERY SECTION */
+        #gallery {
+            background-color: #f0f0f0;
+        }
+
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px; /* Column gap */
+            row-gap: 35px; /* Increased row gap to accommodate captions */
+        }
+
+        /* New wrapper for each gallery item + caption */
+        .gallery-entry {
+            /* This div is now the grid item */
+            background-color: white; /* Optional: give entry a background */
+            padding: 10px; /* Optional: padding around media + caption */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* Arrange media and caption vertically */
+            flex-direction: column;
+        }
+
+        /* Renamed from gallery-item -> gallery-media-item */
+        .gallery-media-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 5px; /* Slightly smaller radius */
+            position: relative;
+            height: 200px; /* Maintain fixed height for the media part */
+            background-color: #ccc;
+            display: block; /* Ensure it takes block space */
+            width: 100%; /* Ensure it fills wrapper width */
+        }
+
+        .gallery-media-item img,
+        .gallery-media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-media-item:hover img,
+        .gallery-media-item:hover video {
+            transform: scale(1.05);
+        }
+
+        /* Class for video items remains for the play icon */
+        .gallery-item-video { /* Apply to gallery-media-item if it's a video */
+            position: relative;
+        }
+
+        .gallery-item-video::after { /* Play Icon */
+            content: "▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 2;
+            transition: background-color 0.3s ease;
+        }
+        .gallery-media-item:hover.gallery-item-video::after {
+             background-color: rgba(0,0,0,0.7);
+        }
+
+        /* New styles for the caption below the media */
+        .gallery-caption {
+            font-size: 0.9rem; /* Small font size */
+            color: #444; /* Slightly darker than default */
+            text-align: center; /* Center the caption text */
+            margin-top: 10px; /* Space between media and caption */
+            margin-bottom: 0; /* Remove default paragraph bottom margin */
+            padding: 0 5px; /* Padding left/right */
+            line-height: 1.3; /* Adjust line height */
+            /* Optional: handle long text */
+            /* white-space: nowrap; */
+            /* overflow: hidden; */
+            /* text-overflow: ellipsis; */
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal-content img, .modal-content video {
+            max-width: 100%;
+            max-height: 85vh;
+            display: block;
+            margin: auto;
+            border-radius: 5px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            line-height: 1;
+        }
+
+        /* ABOUT SECTION */
+        #about {
+            background-color: white;
+        }
+
+        .about-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+                padding-bottom: 10px;
+            }
+
+            .nav-links {
+                 flex-wrap: wrap;
+                 justify-content: center;
+                 gap: 10px 15px;
+            }
+
+            .section {
+                padding-top: 120px; /* Adjust as needed based on final nav height */
+            }
+             #home {
+                 padding-top: 140px; /* Adjust as needed */
+             }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px; /* Adjust gaps */
+                row-gap: 25px;
+            }
+             .gallery-caption {
+                 font-size: 0.85rem;
+                 margin-top: 8px;
+             }
+             .gallery-media-item {
+                 height: 180px; /* Maybe reduce height slightly */
+             }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                max-height: 95%;
+            }
+
+             .modal-content img, .modal-content video {
+                  max-height: 90vh;
+             }
+        }
+
+         @media (max-width: 480px) {
+             .gallery-grid {
+                  grid-template-columns: 1fr; /* Single column */
+                  row-gap: 20px;
+             }
+             .gallery-media-item {
+                 height: 220px; /* Adjust height for single column */
+             }
+             .section {
+                 padding-top: 130px; /* Adjust padding */
+             }
+              #home {
+                  padding-top: 150px; /* Adjust padding */
+              }
+         }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="nav-container">
+            <div class="logo">Barlow CTM</div>
+            <div class="nav-links">
+                <button class="nav-button active" data-section="home">Home</button>
+                <button class="nav-button" data-section="team">Meet the Team</button>
+                <button class="nav-button" data-section="gallery">Gallery</button>
+                <button class="nav-button" data-section="about">About Us</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Section -->
+    <div id="home" class="section active">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to Barlow CTM</h1>
+                <p class="hero-subtitle">A high school small ensemble dedicated to bringing joy through music.</p>
+                <img src="https://files.catbox.moe/f67ku0.jpg" alt="Barlow CTM Group Photo" class="home-image">
+                <p>We gather Mondays, Tuesdays, and some Fridays to practice songs and play together. With a mix of solos, duets, trios, quartets, and sometimes full audience sing-a-longs, we perform our perfected programs at elderly homes and other related environments, to bring more cheer into other communities.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meet the Team Section -->
+    <div id="team" class="section inactive">
+        <div class="container">
+            <h2 class="team-title">Meet the Barlow CTM</h2>
+            <div class="team-grid">
+                <!-- Team members (using placeholders with initials for variety) -->
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/rw40ol.jpg" alt="Carolyn Hopstaken" class="profile-picture">
+                    <h3 class="member-name">Carolyn Hopstaken</h3>
+                    <p class="member-title">Pianist</p>
+                    <p class="member-bio">Carolyn is a talented pianist, bringing classical and contemporary pieces to life.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/nbnrgi.jpg" alt="Alisen McTague" class="profile-picture">
+                    <h3 class="member-name">Alisen McTague</h3>
+                    <p class="member-title">Tenor Saxophonist</p>
+                    <p class="member-bio">Alisen with a smooth sound on the tenor sax, adding jazzy vibes.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/bx4u6b.jpg" alt="Mackenzie Kassner" class="profile-picture">
+                    <h3 class="member-name">Mackenzie Kassner</h3>
+                    <p class="member-title">Floutist</p>
+                    <p class="member-bio">Delicate and precise flute melodies characterize Mackenzie's playing.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/6knxbc.jpg" alt="Michael Mininberg" class="profile-picture">
+                    <h3 class="member-name">Michael Mininberg</h3>
+                    <p class="member-title">Trumpeter</p>
+                    <p class="member-bio">Michael's bright trumpet tones lead many of our ensemble pieces.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/q9mgz7.jpg" alt="Austin Bradford" class="profile-picture">
+                    <h3 class="member-name">Austin Bradford</h3>
+                    <p class="member-title">Pianist</p>
+                    <p class="member-bio">Austin provides solid harmonic support and performs intricate solos.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/pc5i6v.jpg" alt="Sylvia Callemo" class="profile-picture">
+                    <h3 class="member-name">Sylvia Callemo</h3>
+                    <p class="member-title">Violinist</p>
+                    <p class="member-bio">Sylvia's violin adds a rich, expressive layer to our sound.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/i77vfb.jpg" alt="Annie Peters" class="profile-picture">
+                    <h3 class="member-name">Annie Peters</h3>
+                    <p class="member-title">Vocalist</p>
+                    <p class="member-bio">Annie's versatile voice shines in both solo and ensemble singing.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/lbnatl.jpg" alt="Conrad Newell" class="profile-picture">
+                    <h3 class="member-name">Conrad Newell</h3>
+                    <p class="member-title">French Hornist</p>
+                    <p class="member-bio">Conrad brings the warm, noble sound of the French horn to the group.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/nqsx2r.jpg" alt="Eddie Chiaramonte" class="profile-picture">
+                    <h3 class="member-name">Eddie Chiaramonte</h3>
+                    <p class="member-title">Trumpeter</p>
+                    <p class="member-bio">Eddie adds strength and flair to the trumpet section.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/bmzkay.jpg" alt="Genevieve Currie" class="profile-picture">
+                    <h3 class="member-name">Genevieve Currie</h3>
+                    <p class="member-title">Clarenetist</p>
+                    <p class="member-bio">Genevieve's clarinet provides lyrical melodies and woodwind color.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://files.catbox.moe/ow9awz.jpg" alt="Matthew Arnold" class="profile-picture">
+                    <h3 class="member-name">Matthew Arnold</h3>
+                    <p class="member-title">Cellist</p>
+                    <p class="member-bio">Matthew lays down the resonant bass lines and soulful cello solos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery" class="section inactive">
+        <div class="container">
+            <h2 class="gallery-title">Gallery</h2>
+            <div class="gallery-grid">
+
+                <!-- GALLERY ENTRY: Image -->
+                <div class="gallery-entry">
+                    <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/idhq36.JPG">
+                        <img src="https://files.catbox.moe/idhq36.JPG" alt="Carolyn Speaking">
+                    </div>
+                    <p class="gallery-caption">Carolyn Speaking</p>
+                </div>
+
+                <!-- GALLERY ENTRY: Video -->
+                <div class="gallery-entry">
+                    <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/icaa5g.mp4">
+                        <video src="https://files.catbox.moe/icaa5g.mp4" muted preload="metadata" alt="City of Stars Performance Snippet"></video>
+                    </div>
+                    <p class="gallery-caption">City of Stars (Snippet)</p>
+                </div>
+
+                <!-- Additional gallery entries -->
+                <div class="gallery-entry">
+                    <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/ynzhpp.mp4">
+                        <video src="https://files.catbox.moe/ynzhpp.mp4" muted preload="metadata" alt="New York, New York"></video>
+                    </div>
+                    <p class="gallery-caption">New York, New York</p>
+                </div>
+
+                <div class="gallery-entry">
+                    <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/wrq3lk.JPG">
+                        <img src="https://files.catbox.moe/wrq3lk.JPG" alt="Michael on Trumpet">
+                    </div>
+                    <p class="gallery-caption">Michael on Trumpet</p>
+                </div>
+
+                <div class="gallery-entry">
+                   <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/i4qxt6.mov">
+                       <video src="https://files.catbox.moe/i4qxt6.mov" muted preload="metadata" alt="Married Life"></video>
+                   </div>
+                   <p class="gallery-caption">Married Life</p>
+                </div>
+
+                <div class="gallery-entry">
+                    <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/pckdzr.JPG">
+                        <img src="https://files.catbox.moe/pckdzr.JPG" alt="Austin on Piano">
+                    </div>
+                    <p class="gallery-caption">Austin on Piano</p>
+                </div>
+
+                <div class="gallery-entry">
+                    <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/kqj7n7.mp4">
+                        <video src="https://files.catbox.moe/kqj7n7.mp4" muted preload="metadata" alt="Somewhere Over The Rainbow"></video>
+                    </div>
+                    <p class="gallery-caption">Somewhere Over The Rainbow</p>
+                </div>
+
+                <div class="gallery-entry">
+                    <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/kqzhc7.JPG">
+                        <img src="https://files.catbox.moe/kqzhc7.JPG" alt="Moon River">
+                    </div>
+                    <p class="gallery-caption">Moon River</p>
+                </div>
+
+                <div class="gallery-entry">
+                    <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/b1anc1.mp4">
+                        <video src="https://files.catbox.moe/b1anc1.mp4" muted preload="metadata" alt="Moon River"></video>
+                    </div>
+                    <p class="gallery-caption">Moon River</p>
+                </div>
+
+            </div> <!-- End gallery-grid -->
+        </div> <!-- End container -->
+    </div> <!-- End gallery section -->
+
+    <!-- About Section -->
+    <div id="about" class="section inactive">
+        <div class="container">
+            <h2 class="about-title">About Us</h2>
+            <div class="about-content">
+                <p>Barlow CTM (Community Through Music) is a high school small ensemble from Joel Barlow High School dedicated to sharing the joy of music with our local community, particularly in settings like elderly homes and community centers.</p>
+                <h3>What We Do</h3>
+                <p>We gather Mondays, Tuesdays, and some Fridays after school to rehearse a diverse repertoire, ranging from classical pieces and jazz standards to popular tunes and seasonal favorites. Our performances often feature a mix of solos, duets, trios, quartets, and full ensemble numbers. We strive to create engaging programs that bring cheer and connection through music.</p>
+                <h3>Our Mission</h3>
+                <p>Our mission is to bring the uplifting power of live music to those who may have limited access to it, while simultaneously providing our student musicians with valuable performance experience and the rewarding opportunity to contribute positively to the community.</p>
+                <h3>Join Us or Book Us</h3>
+                <p>If you're a student at Joel Barlow High School interested in joining Barlow CTM, please reach out to one of the emails below. If you represent a local organization or facility and would like to inquire about scheduling a performance, please contact one of the emails below for more information.<br><br>carolyn.hopstaken@er9.org - Carolyn Hopstaken<br>alisen.mctague@er9.org - Alisen McTague<br><br>
+                <a href="https://www.instagram.com/jbhs.ctm/" target="_blank" rel="noopener noreferrer">The Joel Barlow High School CTM Social Media</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Gallery Items -->
+    <div class="modal" id="gallery-modal">
+        <button class="modal-close" aria-label="Close modal">×</button>
+        <div class="modal-content" id="modal-content">
+            <!-- Content (image or video) will be loaded here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const sections = document.querySelectorAll('.section');
+
+            // Function to switch sections more robustly
+            function switchSection(targetId) {
+                let foundActive = false;
+                navButtons.forEach(btn => {
+                    const isActive = btn.getAttribute('data-section') === targetId;
+                    btn.classList.toggle('active', isActive);
+                    if (isActive) foundActive = true;
+                });
+                // Fallback if targetId not in nav (shouldn't happen with current setup)
+                 if (!foundActive && navButtons.length > 0) {
+                     navButtons[0].classList.add('active'); // Activate first button as default
+                     targetId = navButtons[0].getAttribute('data-section');
+                 }
+
+
+                sections.forEach(section => {
+                    const isActive = section.id === targetId;
+                    section.classList.toggle('active', isActive);
+                    section.classList.toggle('inactive', !isActive);
+                });
+            }
+
+            // Determine initial active section from button state
+            let initialActiveSectionId = 'home'; // Default
+            const initiallyActiveButton = document.querySelector('.nav-button.active');
+            if (initiallyActiveButton) {
+                initialActiveSectionId = initiallyActiveButton.getAttribute('data-section');
+            }
+
+            // Initial setup
+            sections.forEach(section => {
+                const isActive = section.id === initialActiveSectionId;
+                section.classList.toggle('active', isActive);
+                section.classList.toggle('inactive', !isActive);
+            });
+
+            // Add click listeners to nav buttons
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-section');
+                    switchSection(targetId);
+                });
+            });
+
+            // --- Gallery Modal Logic ---
+            // Select the clickable media items within the entries
+            const galleryMediaItems = document.querySelectorAll('.gallery-media-item');
+            const modal = document.getElementById('gallery-modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalClose = document.querySelector('.modal-close');
+
+            galleryMediaItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const src = this.getAttribute('data-src');
+
+                    // Find the sibling caption element to get the title
+                    const captionElement = this.nextElementSibling;
+                    const title = captionElement ? captionElement.textContent.trim() : '';
+
+                    // Use alt text from image/video primarily, fallback to caption
+                    const altTextSourceElement = this.querySelector('img, video');
+                    const altText = altTextSourceElement?.getAttribute('alt') || title || 'Gallery item';
+
+                    // Clear previous content
+                    modalContent.innerHTML = '';
+
+                    // Add new content based on type
+                    if (type === 'image') {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = altText;
+                        modalContent.appendChild(img);
+                    } else if (type === 'video') {
+                        const video = document.createElement('video');
+                        video.src = src;
+                        video.controls = true;
+                        video.autoplay = true;
+                        video.setAttribute('aria-label', altText);
+                        modalContent.appendChild(video);
+                    }
+
+                    // Show modal
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Function to close modal
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+
+                const videos = modalContent.querySelectorAll('video');
+                videos.forEach(video => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+                 modalContent.innerHTML = '';
+            }
+
+            // Close modal listeners
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            document.addEventListener('keydown', function(e) {
+                 if (e.key === 'Escape' && modal.classList.contains('active')) {
+                     closeModal();
+                 }
+            });
+
+             // Refined initial state handling for sections on load
+             window.addEventListener('load', () => {
+                // Call switchSection ensures correct classes are set after load
+                // Using the determined initialActiveSectionId
+                switchSection(initialActiveSectionId);
+             });
+
+        });
+    </script>
+</body>
+</html>
