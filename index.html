@@ -153,14 +153,14 @@
         }
 
         .home-image {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        margin: 30px auto;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        max-width: 600px;
-}
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 30px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
 
         /* MEET THE TEAM SECTION */
         #team {
@@ -184,13 +184,16 @@
             background-color: #f9f9f9;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow */
+            cursor: pointer; /* Add cursor to indicate clickable */
         }
 
         .team-member:hover {
             transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Enhance shadow on hover */
         }
 
+        /* Shared styles for profile picture */
         .profile-picture {
             width: 120px;
             height: 120px;
@@ -232,27 +235,26 @@
             row-gap: 35px; /* Increased row gap to accommodate captions */
         }
 
-        /* New wrapper for each gallery item + caption */
+        /* Wrapper for each gallery item + caption */
         .gallery-entry {
-            /* This div is now the grid item */
-            background-color: white; /* Optional: give entry a background */
-            padding: 10px; /* Optional: padding around media + caption */
+            background-color: white;
+            padding: 10px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: flex; /* Arrange media and caption vertically */
+            display: flex;
             flex-direction: column;
         }
 
-        /* Renamed from gallery-item -> gallery-media-item */
+        /* Media item container within entry */
         .gallery-media-item {
             cursor: pointer;
             overflow: hidden;
-            border-radius: 5px; /* Slightly smaller radius */
+            border-radius: 5px;
             position: relative;
-            height: 200px; /* Maintain fixed height for the media part */
+            height: 200px;
             background-color: #ccc;
-            display: block; /* Ensure it takes block space */
-            width: 100%; /* Ensure it fills wrapper width */
+            display: block;
+            width: 100%;
         }
 
         .gallery-media-item img,
@@ -269,8 +271,8 @@
             transform: scale(1.05);
         }
 
-        /* Class for video items remains for the play icon */
-        .gallery-item-video { /* Apply to gallery-media-item if it's a video */
+        /* Class for video items */
+        .gallery-item-video {
             position: relative;
         }
 
@@ -297,22 +299,18 @@
              background-color: rgba(0,0,0,0.7);
         }
 
-        /* New styles for the caption below the media */
+        /* Caption below the media */
         .gallery-caption {
-            font-size: 0.9rem; /* Small font size */
-            color: #444; /* Slightly darker than default */
-            text-align: center; /* Center the caption text */
-            margin-top: 10px; /* Space between media and caption */
-            margin-bottom: 0; /* Remove default paragraph bottom margin */
-            padding: 0 5px; /* Padding left/right */
-            line-height: 1.3; /* Adjust line height */
-            /* Optional: handle long text */
-            /* white-space: nowrap; */
-            /* overflow: hidden; */
-            /* text-overflow: ellipsis; */
+            font-size: 0.9rem;
+            color: #444;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 0;
+            padding: 0 5px;
+            line-height: 1.3;
         }
 
-        /* MODAL */
+        /* MODALS (General) */
         .modal {
             position: fixed;
             top: 0;
@@ -320,13 +318,15 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.85);
-            display: flex;
+            display: flex; /* Changed from none to flex for centering */
             align-items: center;
             justify-content: center;
             z-index: 2000;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
+            overflow-y: auto; /* Allow modal itself to scroll if content overflows */
+            padding: 20px; /* Add padding for spacing */
         }
 
         .modal.active {
@@ -334,24 +334,10 @@
             pointer-events: auto;
         }
 
-        .modal-content {
-            max-width: 90%;
-            max-height: 90%;
-            position: relative;
-        }
-
-        .modal-content img, .modal-content video {
-            max-width: 100%;
-            max-height: 85vh;
-            display: block;
-            margin: auto;
-            border-radius: 5px;
-        }
-
         .modal-close {
             position: absolute;
-            top: 10px;
-            right: 15px;
+            top: 15px; /* Adjusted position */
+            right: 20px; /* Adjusted position */
             color: white;
             font-size: 2.5rem;
             cursor: pointer;
@@ -361,6 +347,117 @@
             text-shadow: 0 0 5px rgba(0,0,0,0.5);
             line-height: 1;
         }
+
+        /* GALLERY MODAL Specifics */
+        #gallery-modal .modal-content { /* Target specific modal content */
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            background: none; /* No background for gallery content wrapper itself */
+        }
+
+        #gallery-modal .modal-content img,
+        #gallery-modal .modal-content video {
+            max-width: 100%;
+            max-height: 85vh; /* Limit media height */
+            display: block;
+            margin: auto;
+            border-radius: 5px;
+        }
+
+        /* MEMBER MODAL Specifics */
+        #member-modal .member-modal-content { /* Target specific modal content */
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 900px; /* Limit width */
+            width: 90%; /* Responsive width */
+            max-height: 90vh; /* Limit height */
+            overflow-y: auto; /* Allow content scrolling */
+            position: relative; /* For close button positioning */
+            display: flex;
+            flex-direction: column; /* Stack details and gallery */
+            gap: 20px;
+        }
+
+        #member-modal .modal-close {
+             color: #555; /* Darker close button */
+             text-shadow: none;
+             top: 10px;
+             right: 10px;
+        }
+
+        .member-modal-details {
+            text-align: center; /* Center the profile details */
+            border-bottom: 1px solid #eee; /* Separator */
+            padding-bottom: 20px;
+        }
+
+        /* Reuse profile picture styles, potentially adjust size */
+        .member-modal-details .profile-picture {
+            width: 150px; /* Slightly larger in modal */
+            height: 150px;
+            margin-left: auto;
+            margin-right: auto; /* Center block element */
+        }
+
+        .member-modal-details .member-name {
+            color: #1a3c6e; /* Match main heading color */
+            font-size: 1.5rem; /* Larger name */
+            margin-top: 10px;
+        }
+
+        .member-modal-details .member-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+         .member-modal-details .member-bio {
+             font-size: 1rem;
+             max-width: 600px; /* Limit bio width */
+             margin: 0 auto; /* Center bio */
+         }
+
+        .member-modal-gallery {
+            /* Styles for the gallery section within the modal */
+        }
+
+        .member-modal-gallery h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .member-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Smaller items in modal */
+            gap: 15px; /* Adjust gap */
+            row-gap: 25px;
+            max-height: 40vh; /* Limit grid height and allow scroll */
+            overflow-y: auto; /* Enable scrolling for the grid */
+            padding: 10px; /* Add padding inside scroll area */
+            background-color: #f9f9f9; /* Slight background */
+            border-radius: 5px;
+        }
+
+        /* Styles for items within the member-gallery-grid (reuse/adapt) */
+        .member-gallery-grid .gallery-entry {
+            /* Inherits base styles, maybe adjust padding/shadow if needed */
+            padding: 8px;
+        }
+        .member-gallery-grid .gallery-media-item {
+            height: 120px; /* Smaller height for mini-gallery items */
+        }
+        .member-gallery-grid .gallery-caption {
+            font-size: 0.8rem; /* Smaller caption */
+            margin-top: 8px;
+        }
+        .member-gallery-grid .gallery-item-video::after {
+            font-size: 1.5rem; /* Smaller play icon */
+            width: 35px;
+            height: 35px;
+        }
+
 
         /* ABOUT SECTION */
         #about {
@@ -384,13 +481,11 @@
                 gap: 10px;
                 padding-bottom: 10px;
             }
-
             .nav-links {
                  flex-wrap: wrap;
                  justify-content: center;
                  gap: 10px 15px;
             }
-
             .section {
                 padding-top: 120px; /* Adjust as needed based on final nav height */
             }
@@ -399,12 +494,16 @@
              }
 
             .team-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust team grid */
+            }
+            .profile-picture { /* Make profile pictures slightly smaller */
+                 width: 100px;
+                 height: 100px;
             }
 
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 15px; /* Adjust gaps */
+                gap: 15px;
                 row-gap: 25px;
             }
              .gallery-caption {
@@ -412,21 +511,43 @@
                  margin-top: 8px;
              }
              .gallery-media-item {
-                 height: 180px; /* Maybe reduce height slightly */
+                 height: 180px;
              }
 
             .hero-title {
                 font-size: 2rem;
             }
 
-            .modal-content {
+            #gallery-modal .modal-content { /* Gallery modal responsive */
                 max-width: 95%;
                 max-height: 95%;
             }
-
-             .modal-content img, .modal-content video {
+             #gallery-modal .modal-content img,
+             #gallery-modal .modal-content video {
                   max-height: 90vh;
              }
+
+            /* Member Modal Responsive */
+             #member-modal .member-modal-content {
+                 padding: 20px;
+                 width: 95%;
+                 max-height: 85vh; /* Adjust height on smaller screens */
+             }
+              .member-modal-details .profile-picture {
+                 width: 120px;
+                 height: 120px;
+              }
+              .member-modal-details .member-name {
+                  font-size: 1.3rem;
+              }
+             .member-gallery-grid {
+                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller grid items */
+                 max-height: 35vh; /* Adjust scroll height */
+             }
+             .member-gallery-grid .gallery-media-item {
+                 height: 100px;
+             }
+
         }
 
          @media (max-width: 480px) {
@@ -435,14 +556,36 @@
                   row-gap: 20px;
              }
              .gallery-media-item {
-                 height: 220px; /* Adjust height for single column */
+                 height: 220px;
              }
              .section {
-                 padding-top: 130px; /* Adjust padding */
+                 padding-top: 140px; /* Increase padding more for smaller screens */
              }
               #home {
-                  padding-top: 150px; /* Adjust padding */
+                  padding-top: 160px;
               }
+             .team-grid {
+                 grid-template-columns: 1fr; /* Single column team */
+             }
+              /* Member Modal Responsive */
+             #member-modal .member-modal-content {
+                 padding: 15px;
+             }
+              .member-modal-details .profile-picture {
+                 width: 100px;
+                 height: 100px;
+              }
+              .member-gallery-grid {
+                  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Even smaller */
+                  max-height: 30vh;
+              }
+               .member-gallery-grid .gallery-media-item {
+                 height: 90px;
+               }
+                .member-gallery-grid .gallery-caption {
+                    font-size: 0.75rem;
+                }
+
          }
     </style>
 </head>
@@ -477,68 +620,68 @@
         <div class="container">
             <h2 class="team-title">Meet the Barlow CTM</h2>
             <div class="team-grid">
-                <!-- Team members (using placeholders with initials for variety) -->
-                <div class="team-member">
+                <!-- ADD data-member-id to each team member -->
+                <div class="team-member" data-member-id="carolyn-hopstaken">
                     <img src="https://files.catbox.moe/rw40ol.jpg" alt="Carolyn Hopstaken" class="profile-picture">
                     <h3 class="member-name">Carolyn Hopstaken</h3>
                     <p class="member-title">Pianist</p>
                     <p class="member-bio">Carolyn is a talented pianist, bringing classical and contemporary pieces to life.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="alisen-mctague">
                     <img src="https://files.catbox.moe/nbnrgi.jpg" alt="Alisen McTague" class="profile-picture">
                     <h3 class="member-name">Alisen McTague</h3>
                     <p class="member-title">Tenor Saxophonist</p>
                     <p class="member-bio">Alisen with a smooth sound on the tenor sax, adding jazzy vibes.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="mackenzie-kassner">
                     <img src="https://files.catbox.moe/bx4u6b.jpg" alt="Mackenzie Kassner" class="profile-picture">
                     <h3 class="member-name">Mackenzie Kassner</h3>
                     <p class="member-title">Floutist</p>
                     <p class="member-bio">Delicate and precise flute melodies characterize Mackenzie's playing.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="michael-mininberg">
                     <img src="https://files.catbox.moe/6knxbc.jpg" alt="Michael Mininberg" class="profile-picture">
                     <h3 class="member-name">Michael Mininberg</h3>
                     <p class="member-title">Trumpeter</p>
                     <p class="member-bio">Michael's bright trumpet tones lead many of our ensemble pieces.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="austin-bradford">
                     <img src="https://files.catbox.moe/62z56d.jpeg" alt="Austin Bradford" class="profile-picture">
                     <h3 class="member-name">Austin Bradford</h3>
                     <p class="member-title">Pianist</p>
                     <p class="member-bio">Austin provides solid harmonic support and performs intricate solos.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="sylvia-callemo">
                     <img src="https://files.catbox.moe/pc5i6v.jpg" alt="Sylvia Callemo" class="profile-picture">
                     <h3 class="member-name">Sylvia Callemo</h3>
                     <p class="member-title">Violinist</p>
                     <p class="member-bio">Sylvia's violin adds a rich, expressive layer to our sound.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="annie-peters">
                     <img src="https://files.catbox.moe/i77vfb.jpg" alt="Annie Peters" class="profile-picture">
                     <h3 class="member-name">Annie Peters</h3>
                     <p class="member-title">Vocalist</p>
                     <p class="member-bio">Annie's versatile voice shines in both solo and ensemble singing.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="conrad-newell">
                     <img src="https://files.catbox.moe/lbnatl.jpg" alt="Conrad Newell" class="profile-picture">
                     <h3 class="member-name">Conrad Newell</h3>
                     <p class="member-title">French Hornist</p>
                     <p class="member-bio">Conrad brings the warm, noble sound of the French horn to the group.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="eddie-chiaramonte">
                     <img src="https://files.catbox.moe/nqsx2r.jpg" alt="Eddie Chiaramonte" class="profile-picture">
                     <h3 class="member-name">Eddie Chiaramonte</h3>
                     <p class="member-title">Trumpeter</p>
                     <p class="member-bio">Eddie adds strength and flair to the trumpet section.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="genevieve-currie">
                     <img src="https://files.catbox.moe/bmzkay.jpg" alt="Genevieve Currie" class="profile-picture">
                     <h3 class="member-name">Genevieve Currie</h3>
                     <p class="member-title">Clarenetist</p>
                     <p class="member-bio">Genevieve's clarinet provides lyrical melodies and woodwind color.</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member" data-member-id="matthew-arnold">
                     <img src="https://files.catbox.moe/ow9awz.jpg" alt="Matthew Arnold" class="profile-picture">
                     <h3 class="member-name">Matthew Arnold</h3>
                     <p class="member-title">Cellist</p>
@@ -554,66 +697,66 @@
             <h2 class="gallery-title">Gallery</h2>
             <div class="gallery-grid">
 
-                <!-- GALLERY ENTRY: Image -->
-                <div class="gallery-entry">
+                <!-- ADD data-members attribute to each gallery entry -->
+                <!-- Example: Space-separated list of member IDs -->
+
+                <div class="gallery-entry" data-members="carolyn-hopstaken">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/idhq36.JPG">
                         <img src="https://files.catbox.moe/idhq36.JPG" alt="Carolyn Speaking">
                     </div>
                     <p class="gallery-caption">Carolyn Speaking</p>
                 </div>
 
-                <!-- GALLERY ENTRY: Video -->
-                <div class="gallery-entry">
+                <div class="gallery-entry" data-members="austin-bradford">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/icaa5g.mp4">
                         <video src="https://files.catbox.moe/icaa5g.mp4" muted preload="metadata" alt="City of Stars Performance Snippet"></video>
                     </div>
                     <p class="gallery-caption">City of Stars (Snippet)</p>
                 </div>
 
-                <!-- Additional gallery entries -->
-                <div class="gallery-entry">
+                <div class="gallery-entry" data-members="michael-mininberg austin-bradford">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/ynzhpp.mp4">
                         <video src="https://files.catbox.moe/ynzhpp.mp4" muted preload="metadata" alt="New York, New York"></video>
                     </div>
                     <p class="gallery-caption">New York, New York</p>
                 </div>
 
-                <div class="gallery-entry">
+                <div class="gallery-entry" data-members="michael-mininberg">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/wrq3lk.JPG">
                         <img src="https://files.catbox.moe/wrq3lk.JPG" alt="Michael on Trumpet">
                     </div>
                     <p class="gallery-caption">Michael on Trumpet</p>
                 </div>
 
-                <div class="gallery-entry">
+                <div class="gallery-entry" data-members="mackenzie-kassner genevieve-currie">
                    <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/i4qxt6.mov">
                        <video src="https://files.catbox.moe/i4qxt6.mov" muted preload="metadata" alt="Married Life"></video>
                    </div>
                    <p class="gallery-caption">Married Life</p>
                 </div>
 
-                <div class="gallery-entry">
+                <div class="gallery-entry" data-members="austin-bradford">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/pckdzr.JPG">
                         <img src="https://files.catbox.moe/pckdzr.JPG" alt="Austin on Piano">
                     </div>
                     <p class="gallery-caption">Austin on Piano</p>
                 </div>
 
-                <div class="gallery-entry">
+                <div class="gallery-entry" data-members="mackenzie-kassner">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/kqj7n7.mp4">
                         <video src="https://files.catbox.moe/kqj7n7.mp4" muted preload="metadata" alt="Somewhere Over The Rainbow"></video>
                     </div>
                     <p class="gallery-caption">Somewhere Over The Rainbow</p>
                 </div>
 
-                <div class="gallery-entry">
+                <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/kqzhc7.JPG">
-                        <img src="https://files.catbox.moe/kqzhc7.JPG" alt="Moon River">
+                        <img src="https://files.catbox.moe/kqzhc7.JPG" alt="Annie and Carolyn">
                     </div>
-                    <p class="gallery-caption">Moon River</p>
+                    <p class="gallery-caption">Moon River (Rehearsal)</p>
                 </div>
 
-                <div class="gallery-entry">
+                <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/b1anc1.mp4">
                         <video src="https://files.catbox.moe/b1anc1.mp4" muted preload="metadata" alt="Moon River"></video>
                     </div>
@@ -641,32 +784,49 @@
 
     <!-- Modal for Gallery Items -->
     <div class="modal" id="gallery-modal">
-        <button class="modal-close" aria-label="Close modal">×</button>
-        <div class="modal-content" id="modal-content">
+        <button class="modal-close" aria-label="Close gallery modal">×</button>
+        <div class="modal-content" id="gallery-modal-content">
             <!-- Content (image or video) will be loaded here by JavaScript -->
         </div>
     </div>
+
+    <!-- NEW: Modal for Member Details -->
+    <div class="modal" id="member-modal">
+         {/* <!-- Close button uses same class, specific positioning handled in CSS --> */}
+        <button class="modal-close" aria-label="Close member modal">×</button>
+        <div class="member-modal-content">
+            <div class="member-modal-details" id="member-modal-details">
+                {/* Member details will be populated here by JS */}
+            </div>
+            <div class="member-modal-gallery">
+                <h3>Featured In:</h3>
+                <div class="member-gallery-grid" id="member-modal-gallery-grid">
+                    {/* Associated gallery items will be cloned here by JS */}
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const navButtons = document.querySelectorAll('.nav-button');
             const sections = document.querySelectorAll('.section');
+            const allGalleryEntries = document.querySelectorAll('#gallery .gallery-entry'); // Get all original gallery entries
 
-            // Function to switch sections more robustly
+            // --- Section Switching Logic (existing) ---
             function switchSection(targetId) {
+                // ... (keep existing switchSection logic)
                 let foundActive = false;
                 navButtons.forEach(btn => {
                     const isActive = btn.getAttribute('data-section') === targetId;
                     btn.classList.toggle('active', isActive);
                     if (isActive) foundActive = true;
                 });
-                // Fallback if targetId not in nav (shouldn't happen with current setup)
-                 if (!foundActive && navButtons.length > 0) {
-                     navButtons[0].classList.add('active'); // Activate first button as default
-                     targetId = navButtons[0].getAttribute('data-section');
-                 }
-
-
+                if (!foundActive && navButtons.length > 0) {
+                    navButtons[0].classList.add('active');
+                    targetId = navButtons[0].getAttribute('data-section');
+                }
                 sections.forEach(section => {
                     const isActive = section.id === targetId;
                     section.classList.toggle('active', isActive);
@@ -674,21 +834,13 @@
                 });
             }
 
-            // Determine initial active section from button state
-            let initialActiveSectionId = 'home'; // Default
+            let initialActiveSectionId = 'home';
             const initiallyActiveButton = document.querySelector('.nav-button.active');
             if (initiallyActiveButton) {
                 initialActiveSectionId = initiallyActiveButton.getAttribute('data-section');
             }
+            switchSection(initialActiveSectionId); // Call on load
 
-            // Initial setup
-            sections.forEach(section => {
-                const isActive = section.id === initialActiveSectionId;
-                section.classList.toggle('active', isActive);
-                section.classList.toggle('inactive', !isActive);
-            });
-
-            // Add click listeners to nav buttons
             navButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const targetId = this.getAttribute('data-section');
@@ -696,84 +848,163 @@
                 });
             });
 
-            // --- Gallery Modal Logic ---
-            // Select the clickable media items within the entries
-            const galleryMediaItems = document.querySelectorAll('.gallery-media-item');
-            const modal = document.getElementById('gallery-modal');
-            const modalContent = document.getElementById('modal-content');
-            const modalClose = document.querySelector('.modal-close');
+            // --- Gallery Modal Logic (existing, slightly adapted) ---
+            const galleryModal = document.getElementById('gallery-modal');
+            const galleryModalContent = document.getElementById('gallery-modal-content');
+            const galleryModalClose = galleryModal.querySelector('.modal-close');
 
-            galleryMediaItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const type = this.getAttribute('data-type');
-                    const src = this.getAttribute('data-src');
+            // Function to open the main gallery modal
+            function openGalleryModal(mediaItemElement) {
+                 const type = mediaItemElement.getAttribute('data-type');
+                 const src = mediaItemElement.getAttribute('data-src');
+                 const captionElement = mediaItemElement.nextElementSibling;
+                 const title = captionElement ? captionElement.textContent.trim() : '';
+                 const altTextSourceElement = mediaItemElement.querySelector('img, video');
+                 const altText = altTextSourceElement?.getAttribute('alt') || title || 'Gallery item';
 
-                    // Find the sibling caption element to get the title
-                    const captionElement = this.nextElementSibling;
-                    const title = captionElement ? captionElement.textContent.trim() : '';
+                 galleryModalContent.innerHTML = ''; // Clear previous
 
-                    // Use alt text from image/video primarily, fallback to caption
-                    const altTextSourceElement = this.querySelector('img, video');
-                    const altText = altTextSourceElement?.getAttribute('alt') || title || 'Gallery item';
+                 if (type === 'image') {
+                     const img = document.createElement('img');
+                     img.src = src;
+                     img.alt = altText;
+                     galleryModalContent.appendChild(img);
+                 } else if (type === 'video') {
+                     const video = document.createElement('video');
+                     video.src = src;
+                     video.controls = true;
+                     video.autoplay = true;
+                     video.setAttribute('aria-label', altText);
+                     galleryModalContent.appendChild(video);
+                 }
 
-                    // Clear previous content
-                    modalContent.innerHTML = '';
-
-                    // Add new content based on type
-                    if (type === 'image') {
-                        const img = document.createElement('img');
-                        img.src = src;
-                        img.alt = altText;
-                        modalContent.appendChild(img);
-                    } else if (type === 'video') {
-                        const video = document.createElement('video');
-                        video.src = src;
-                        video.controls = true;
-                        video.autoplay = true;
-                        video.setAttribute('aria-label', altText);
-                        modalContent.appendChild(video);
-                    }
-
-                    // Show modal
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
-
-            // Function to close modal
-            function closeModal() {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-
-                const videos = modalContent.querySelectorAll('video');
-                videos.forEach(video => {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-                 modalContent.innerHTML = '';
+                 galleryModal.classList.add('active');
+                 document.body.style.overflow = 'hidden'; // Prevent body scroll
             }
 
-            // Close modal listeners
-            modalClose.addEventListener('click', closeModal);
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
+            // Add listeners to ORIGINAL gallery items
+            document.querySelectorAll('#gallery .gallery-media-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    openGalleryModal(this); // Pass the clicked element
+                });
+            });
+
+            // Function to close the gallery modal
+            function closeGalleryModal() {
+                galleryModal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scroll
+
+                // Stop any videos playing in the modal
+                const videos = galleryModalContent.querySelectorAll('video');
+                videos.forEach(video => {
+                    video.pause();
+                    video.currentTime = 0; // Reset video
+                });
+                 galleryModalContent.innerHTML = ''; // Clear content on close
+            }
+
+            // Gallery modal close listeners
+            galleryModalClose.addEventListener('click', closeGalleryModal);
+            galleryModal.addEventListener('click', function(e) {
+                // Close only if clicking the modal background itself
+                if (e.target === galleryModal) {
+                    closeGalleryModal();
                 }
             });
+
+            // --- NEW: Member Modal Logic ---
+            const teamMembers = document.querySelectorAll('.team-member');
+            const memberModal = document.getElementById('member-modal');
+            const memberModalDetailsContainer = document.getElementById('member-modal-details');
+            const memberModalGalleryGrid = document.getElementById('member-modal-gallery-grid');
+            const memberModalClose = memberModal.querySelector('.modal-close');
+
+            teamMembers.forEach(member => {
+                member.addEventListener('click', function() {
+                    const memberId = this.getAttribute('data-member-id');
+                    if (!memberId) return; // Skip if no ID
+
+                    // --- 1. Populate Member Details ---
+                    memberModalDetailsContainer.innerHTML = ''; // Clear previous details
+
+                    // Clone essential elements to avoid breaking original layout/styles
+                    const picture = this.querySelector('.profile-picture').cloneNode(true);
+                    const name = this.querySelector('.member-name').cloneNode(true);
+                    const title = this.querySelector('.member-title').cloneNode(true);
+                    const bio = this.querySelector('.member-bio').cloneNode(true);
+
+                    // Append cloned elements to the modal details container
+                    memberModalDetailsContainer.appendChild(picture);
+                    memberModalDetailsContainer.appendChild(name);
+                    memberModalDetailsContainer.appendChild(title);
+                    memberModalDetailsContainer.appendChild(bio);
+
+                    // --- 2. Populate Member's Mini-Gallery ---
+                    memberModalGalleryGrid.innerHTML = ''; // Clear previous gallery items
+                    let foundItems = false;
+
+                    allGalleryEntries.forEach(entry => {
+                        const members = entry.getAttribute('data-members');
+                        // Check if the memberId is in the space-separated list
+                        if (members && members.split(' ').includes(memberId)) {
+                            foundItems = true;
+                            const clonedEntry = entry.cloneNode(true); // Deep clone the entire entry
+
+                            // IMPORTANT: Add click listener to the cloned media item
+                            const clonedMediaItem = clonedEntry.querySelector('.gallery-media-item');
+                            if (clonedMediaItem) {
+                                clonedMediaItem.addEventListener('click', function() {
+                                    // Open the ORIGINAL gallery modal when clicked
+                                    openGalleryModal(this);
+                                });
+                            }
+
+                            memberModalGalleryGrid.appendChild(clonedEntry);
+                        }
+                    });
+
+                     // Optional: Display a message if no items are found
+                     if (!foundItems) {
+                         memberModalGalleryGrid.innerHTML = '<p style="text-align:center; color:#777; grid-column: 1 / -1;">No gallery items tagged for this member yet.</p>';
+                     }
+
+
+                    // --- 3. Show Member Modal ---
+                    memberModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent body scroll
+                });
+            });
+
+            // Function to close the member modal
+            function closeMemberModal() {
+                memberModal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scroll
+                // No need to clear content here, it's cleared when opening
+            }
+
+            // Member modal close listeners
+            memberModalClose.addEventListener('click', closeMemberModal);
+            memberModal.addEventListener('click', function(e) {
+                // Close only if clicking the modal background itself
+                if (e.target === memberModal) {
+                    closeMemberModal();
+                }
+            });
+
+            // --- Global Keydown Listener for Modals ---
             document.addEventListener('keydown', function(e) {
-                 if (e.key === 'Escape' && modal.classList.contains('active')) {
-                     closeModal();
+                 if (e.key === 'Escape') {
+                     if (galleryModal.classList.contains('active')) {
+                         closeGalleryModal();
+                     }
+                     if (memberModal.classList.contains('active')) {
+                         closeMemberModal();
+                     }
                  }
             });
 
-             // Refined initial state handling for sections on load
-             window.addEventListener('load', () => {
-                // Call switchSection ensures correct classes are set after load
-                // Using the determined initialActiveSectionId
-                switchSection(initialActiveSectionId);
-             });
-
         });
     </script>
+
 </body>
 </html>
