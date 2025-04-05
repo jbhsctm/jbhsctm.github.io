@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +35,22 @@
         p {
             line-height: 1.6;
             margin-bottom: 15px;
+        }
+
+        @font-face {
+        font-family: 'Kalesi-Regular';
+        src: url('Kalesi-Regular.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        .headliner-text {
+          font-family: 'Kalesi-Regular', serif;
+          text-align: center; /* Centers all headliners */
+          font-size: 3rem; /* Makes them larger - adjust as needed */
+          margin-bottom: 30px; /* Extra space below */
+          width: 100%; /* Ensures full width */
+          display: block; /* Helps with centering */
         }
 
         /* NAVIGATION */
@@ -607,7 +624,7 @@
     <div id="home" class="section active">
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Welcome to Barlow CTM</h1>
+                <h1 class="headliner-text">Welcome to Barlow CTM</h1>
                 <p class="hero-subtitle">A high school small ensemble dedicated to bringing joy through music.</p>
                 <img src="https://files.catbox.moe/f67ku0.jpg" alt="Barlow CTM Group Photo" class="home-image">
                 <p>We gather Mondays, Tuesdays, and some Fridays to practice songs and play together. With a mix of solos, duets, trios, quartets, and sometimes full audience sing-a-longs, we perform our perfected programs at elderly homes and other related environments, to bring more cheer into other communities.</p>
@@ -618,7 +635,7 @@
     <!-- Meet the Team Section -->
     <div id="team" class="section inactive">
         <div class="container">
-            <h2 class="team-title">Meet the Barlow CTM</h2>
+            <h2 class="headliner-text">Meet the Barlow CTM</h2>
             <div class="team-grid">
                 <!-- ADD data-member-id to each team member -->
                 <div class="team-member" data-member-id="carolyn-hopstaken">
@@ -694,7 +711,7 @@
     <!-- Gallery Section -->
     <div id="gallery" class="section inactive">
         <div class="container">
-            <h2 class="gallery-title">Gallery</h2>
+            <h2 class="headliner-text">Gallery</h2>
             <div class="gallery-grid">
 
                 <!-- ADD data-members attribute to each gallery entry -->
@@ -791,7 +808,7 @@
     <!-- About Section -->
     <div id="about" class="section inactive">
         <div class="container">
-            <h2 class="about-title">About Us</h2>
+            <h2 class="headliner-text">About Us</h2>
             <div class="about-content">
                 <p>Barlow CTM (Connected Through Music) is a high school small ensemble from Joel Barlow High School dedicated to sharing the joy of music with those who may have a hard time finding it, particularly in settings like elderly homes and community centers.</p>
                 <h3>What We Do</h3>
