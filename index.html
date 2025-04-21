@@ -929,32 +929,28 @@
             const memberModalClose = memberModal.querySelector('.modal-close');
             const teamMembers = document.querySelectorAll('.team-member');
 
-
             // --- Section Switching Logic ---
-            function switchSection(targetId) {
-                let foundActive = false;
-                navButtons.forEach(btn => {
-                    const isActive = btn.getAttribute('data-section') === targetId;
-                    btn.classList.toggle('active', isActive);
-                    if (isActive) foundActive = true;
-                });
-                // Default to home if no active button somehow (e.g., bad initial state)
-                if (!foundActive && navButtons.length > 0) {
-                    navButtons[0].classList.add('active');
-                    targetId = navButtons[0].getAttribute('data-section');
-                }
-                sections.forEach(section => {
-                    const isActive = section.id === targetId;
-                    // Apply classes for transition and visibility control
-                    section.classList.toggle('active', isActive);
-                    section.classList.toggle('inactive', !isActive);
-
-                     // Reset scroll position for the section becoming active
-                    // if (isActive) {
-                    //     section.scrollTop = 0; // Optional: Scroll to top when section becomes active
-                    // }
-                });
-            }
+function switchSection(targetId) {
+    let foundActive = false;
+    navButtons.forEach(btn => {
+        const isActive = btn.getAttribute('data-section') === targetId;
+        btn.classList.toggle('active', isActive);
+        if (isActive) foundActive = true;
+    });
+    // Default to home if no active button somehow (e.g., bad initial state)
+    if (!foundActive && navButtons.length > 0) {
+        navButtons[0].classList.add('active');
+        targetId = navButtons[0].getAttribute('data-section');
+    }
+    sections.forEach(section => {
+        const isActive = section.id === targetId;
+        // Apply classes for transition and visibility control
+        section.classList.toggle('active', isActive);
+        section.classList.toggle('inactive', !isActive);
+    });
+    // Always jump to top of page on section switch
+    window.scrollTo({ top: 0, behavior: 'instant' });
+}
 
             // --- Gallery Modal Logic ---
             function openGalleryModal(mediaItemElement) {
