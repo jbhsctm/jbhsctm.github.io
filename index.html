@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,15 +13,20 @@
             font-family: 'Arial', sans-serif;
         }
 
+        html {
+            overflow-x: hidden; /* Added this to prevent horizontal scroll */
+        }
+
         body {
             background-color: #f5f5f5;
             color: #333;
             overflow-x: hidden;
+            position: relative; /* Added for better mobile handling */
         }
 
         .container {
             width: 100%;
-            max-width: auto;
+            max-width: 100%; /* Changed from auto to 100% */
             margin: 0 auto;
             padding: 20px;
         }
@@ -43,7 +47,6 @@
         font-weight: normal;
         font-style: normal;
         }
-
         .headliner-text {
           font-family: 'Kalesi-Regular', serif;
           text-align: center; /* Centers all headliners */
@@ -78,7 +81,6 @@
             font-size: 24px;
             font-weight: bold;
         }
-
         .nav-links {
             display: flex;
             gap: 20px;
@@ -114,7 +116,6 @@
             opacity: 0; /* Start sections as transparent */
             pointer-events: none; /* Prevent interaction when inactive */
         }
-
         .section.active {
             transform: translateX(0);
             opacity: 1; /* Fade in */
@@ -127,7 +128,7 @@
             transform: translateX(100%);
             opacity: 0;
             z-index: 0;
-            position: fixed; /* Use fixed so it doesn't take up space */
+            position: absolute; /* Changed from fixed to absolute to prevent overflow */
             top: 0;
             left: 0;
             width: 100vw;
@@ -222,7 +223,6 @@
             margin-bottom: 15px;
             border: 3px solid #1a3c6e;
         }
-
         .member-name {
             font-size: 1.2rem;
             margin-bottom: 5px;
@@ -576,7 +576,7 @@
                   row-gap: 20px;
              }
              .gallery-media-item {
-                 height: 220px;
+                  height: 220px;
              }
              .section {
                  padding-top: 140px; /* Increase padding more for smaller screens */
@@ -760,7 +760,6 @@
                    </div>
                    <p class="gallery-caption">Married Life</p>
                 </div>
-
                 <div class="gallery-entry" data-members="austin-bradford">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/pckdzr.JPG">
                         <img src="https://files.catbox.moe/pckdzr.JPG" alt="Austin on Piano">
@@ -774,7 +773,6 @@
                     </div>
                     <p class="gallery-caption">Somewhere Over The Rainbow</p>
                 </div>
-
                 <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/kqzhc7.JPG">
                         <img src="https://files.catbox.moe/kqzhc7.JPG" alt="Annie and Carolyn">
@@ -788,7 +786,6 @@
                     </div>
                     <p class="gallery-caption">Moon River</p>
                 </div>
-
                 <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo michael-mininberg austin-bradford alisen-mctague genevieve-currie">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/1sagfs.jpg">
                         <img src="https://files.catbox.moe/1sagfs.jpg" alt="Grandma Droniak">
@@ -1012,7 +1009,6 @@ function switchSection(targetId) {
                 }
                 // No need to clear content here, it's cleared/repopulated on opening
             }
-
             // --- Event Listeners ---
 
             // Initial Section Setup
@@ -1088,7 +1084,7 @@ function switchSection(targetId) {
                     });
 
                      if (!foundItems) {
-                         memberModalGalleryGrid.innerHTML = '<p style="text-align:center; color:#777; grid-column: 1 / -1;">No gallery items tagged for this member yet.</p>';
+                          memberModalGalleryGrid.innerHTML = '<p style="text-align:center; color:#777; grid-column: 1 / -1;">No gallery items tagged for this member yet.</p>';
                      }
 
                     // 3. Show Member Modal
