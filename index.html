@@ -948,8 +948,10 @@ function switchSection(targetId) {
         section.classList.toggle('active', isActive);
         section.classList.toggle('inactive', !isActive);
     });
-    // Always jump to top of page on section switch
+    // Always jump to top of page on section switch, but after next paint
+    setTimeout(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
+    }, 50); // 50ms is enough for the class to apply, adjust if needed
 }
 
             // --- Gallery Modal Logic ---
