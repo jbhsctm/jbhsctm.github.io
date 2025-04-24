@@ -21,12 +21,11 @@
             background-color: #f5f5f5;
             color: #333;
             overflow-x: hidden;
-            position: relative; /* Added for better mobile handling */
         }
 
         .container {
             width: 100%;
-            max-width: 100%; /* Changed from auto to 100% */
+            max-width: auto; /* Changed from auto to 100% */
             margin: 0 auto;
             padding: 20px;
         }
@@ -930,30 +929,26 @@
             const teamMembers = document.querySelectorAll('.team-member');
 
             // --- Section Switching Logic ---
-function switchSection(targetId) {
-    let foundActive = false;
-    navButtons.forEach(btn => {
-        const isActive = btn.getAttribute('data-section') === targetId;
-        btn.classList.toggle('active', isActive);
-        if (isActive) foundActive = true;
-    });
-    // Default to home if no active button somehow (e.g., bad initial state)
-    if (!foundActive && navButtons.length > 0) {
-        navButtons[0].classList.add('active');
-        targetId = navButtons[0].getAttribute('data-section');
-    }
-    sections.forEach(section => {
-        const isActive = section.id === targetId;
-        // Apply classes for transition and visibility control
-        section.classList.toggle('active', isActive);
-        section.classList.toggle('inactive', !isActive);
-    });
-    // Multiple scroll attempts with strategic timing
-        window.scrollTo(0, 0); // Try immediately
-
-    // Try again during and after transition
-        setTimeout(() => { window.scrollTo(0, 0); }, 50); 
-        setTimeout(() => { window.scrollTo(0, 0); }, 500);
+        function switchSection(targetId) {
+let foundActive = false;
+navButtons.forEach(btn => {
+const isActive = btn.getAttribute('data-section') === targetId;
+btn.classList.toggle('active', isActive);
+if (isActive) foundActive = true;
+});
+// Default to home if no active button somehow (e.g., bad initial state)
+if (!foundActive && navButtons.length > 0) {
+navButtons[0].classList.add('active');
+targetId = navButtons[0].getAttribute('data-section');
+}
+sections.forEach(section => {
+const isActive = section.id === targetId;
+// Apply classes for transition and visibility control
+section.classList.toggle('active', isActive);
+section.classList.toggle('inactive', !isActive);
+});
+// Always jump to top of page on section switch
+window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
             // --- Gallery Modal Logic ---
