@@ -1149,5 +1149,16 @@ window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.gallery-media-item video').forEach(v => {
+          v.preload = 'auto';
+          v.playsinline = true;
+          // once it’s loaded metadata, pause it so it stays on frame #1
+          v.addEventListener('loadeddata', () => v.pause());
+        });
+      });
+    </script>
+
 </body>
 </html>
