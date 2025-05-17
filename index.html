@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Barlow CTM</title>
     <meta name="google-site-verification" content="qu7orEALhgSz4HmitgSE3kXMM8nvn52BYbMf2nZq_tA" />
     <link rel="icon" type="image/png" href="https://files.catbox.moe/t6964z.png" sizes="192x192">
@@ -42,6 +42,14 @@
         p {
             line-height: 1.6;
             margin-bottom: 15px;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            touch-action: pan-y;
+            overscroll-behavior-x: none;
+            background-color: #f5f5f5; /* keep whatever bg you had */
+            color: #333; /* keep your text color too */
         }
 
         @font-face {
@@ -967,7 +975,7 @@ section.classList.toggle('active', isActive);
 section.classList.toggle('inactive', !isActive);
 });
 // Always jump to top of page on section switch
-window.scrollTo({ top: 0, behavior: 'instant' });
+window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
             // --- Gallery Modal Logic ---
