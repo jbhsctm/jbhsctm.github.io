@@ -1150,15 +1150,26 @@ window.scrollTo({ top: 0, behavior: 'smooth' });
     </script>
 
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.gallery-media-item video').forEach(v => {
-          v.preload = 'auto';
-          v.playsinline = true;
-          // once it’s loaded metadata, pause it so it stays on frame #1
-          v.addEventListener('loadeddata', () => v.pause());
-        });
-      });
-    </script>
+document.addEventListener('DOMContentLoaded', () => {
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  document.querySelectorAll('.gallery-media-item video').forEach(v => {
+    // always allow inline & muted (required for autoplay on iOS/Android)
+    v.setAttribute('playsinline', '');   // HTML attr
+    v.playsInline = true;                // JS prop
+    v.muted = true;
+
+    if (isMobile) {
+      v.autoplay = true;                 // kick off silent playback
+      v.preload  = 'metadata';           // lighter, mobile-friendly
+    } else {
+      v.preload  = 'auto';               // desktop preload full frame
+    }
+
+    // as soon as the first frame is in, pause it so it stays as “poster”
+    v.addEventListener('loadeddata', () => v.pause());
+  });
+});
+</script>
 
 </body>
 </html>
