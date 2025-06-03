@@ -8,6 +8,8 @@
     <link rel="icon" type="image/png" href="https://files.catbox.moe/t6964z.png" sizes="192x192">
     <link rel="icon" type="image/png" href="https://files.catbox.moe/k7flk8.png" sizes="48x48">
     <link rel="icon" href="favicon.ico">
+    <link rel="preconnect" href="https://files.catbox.moe" crossorigin>
+    <link rel="preload" href="Kalesi-Regular.otf" as="font" type="font/otf" crossorigin>
     <style>
         /* GLOBAL STYLES */
         * {
@@ -57,6 +59,7 @@
         src: url('Kalesi-Regular.otf') format('opentype');
         font-weight: normal;
         font-style: normal;
+        font-display: swap;
         }
         .headliner-text {
           font-family: 'Kalesi-Regular', serif;
@@ -614,10 +617,19 @@
                  height: 90px;
                }
                 .member-gallery-grid .gallery-caption {
+
                     font-size: 0.75rem;
                 }
-         }
-    </style>
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+</style>
 </head>
 <body>
     <script>
@@ -651,7 +663,7 @@
             <div class="hero-content">
                 <h1 class="headliner-text">Welcome to Barlow CTM</h1>
                 <p class="hero-subtitle">A high school small ensemble dedicated to bringing joy through music.</p>
-                <img src="https://files.catbox.moe/f67ku0.jpg" alt="Barlow CTM Group Photo" class="home-image">
+                <img loading="lazy" src="https://files.catbox.moe/f67ku0.jpg" alt="Barlow CTM Group Photo" class="home-image">
                 <p>We gather Mondays, Tuesdays, and some Fridays to practice songs and play together. With a mix of solos, duets, trios, quartets, and sometimes full audience sing-a-longs, we perform our perfected programs at elderly homes and other related environments, to bring more cheer into other communities.</p>
             </div>
         </div>
@@ -662,73 +674,73 @@
             <h2 class="headliner-text">Meet the Barlow CTM</h2>
             <div class="team-grid">
                 <div class="team-member" data-member-id="carolyn-hopstaken">
-                    <img src="https://files.catbox.moe/rw40ol.jpg" alt="Carolyn Hopstaken" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/rw40ol.jpg" alt="Carolyn Hopstaken" class="profile-picture">
                     <h3 class="member-name">Carolyn Hopstaken</h3>
                     <p class="member-title">Pianist</p>
                     <p class="member-bio">Carolyn is a talented pianist, bringing classical and contemporary pieces to life.</p>
                 </div>
                 <div class="team-member" data-member-id="alisen-mctague">
-                    <img src="https://files.catbox.moe/nbnrgi.jpg" alt="Alisen McTague" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/nbnrgi.jpg" alt="Alisen McTague" class="profile-picture">
                     <h3 class="member-name">Alisen McTague</h3>
                     <p class="member-title">Tenor Saxophonist</p>
                     <p class="member-bio">Alisen with a smooth sound on the tenor sax, adding jazzy vibes.</p>
                 </div>
                 <div class="team-member" data-member-id="mackenzie-kassner">
-                    <img src="https://files.catbox.moe/bx4u6b.jpg" alt="Mackenzie Kassner" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/bx4u6b.jpg" alt="Mackenzie Kassner" class="profile-picture">
                     <h3 class="member-name">Mackenzie Kassner</h3>
                     <p class="member-title">Flautist</p>
                     <p class="member-bio">Delicate and precise flute melodies characterize Mackenzie's playing.</p>
                 </div>
                 <div class="team-member" data-member-id="michael-mininberg">
-                    <img src="https://files.catbox.moe/6knxbc.jpg" alt="Michael Mininberg" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/6knxbc.jpg" alt="Michael Mininberg" class="profile-picture">
                     <h3 class="member-name">Michael Mininberg</h3>
                     <p class="member-title">Trumpeter</p>
                     <p class="member-bio">Michael's bright trumpet tones lead many of our ensemble pieces.</p>
                 </div>
                 <div class="team-member" data-member-id="austin-bradford">
-                    <img src="https://files.catbox.moe/62z56d.jpeg" alt="Austin Bradford" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/62z56d.jpeg" alt="Austin Bradford" class="profile-picture">
                     <h3 class="member-name">Austin Bradford</h3>
                     <p class="member-title">Pianist</p>
                     <p class="member-bio">Austin provides solid harmonic support and performs intricate solos.</p>
                 </div>
                 <div class="team-member" data-member-id="sylvia-callemo">
-                    <img src="https://files.catbox.moe/pc5i6v.jpg" alt="Sylvia Callemo" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/pc5i6v.jpg" alt="Sylvia Callemo" class="profile-picture">
                     <h3 class="member-name">Sylvia Callemo</h3>
                     <p class="member-title">Violinist</p>
                     <p class="member-bio">Sylvia's violin adds a rich, expressive layer to our sound.</p>
                 </div>
                 <div class="team-member" data-member-id="annie-peters">
-                    <img src="https://files.catbox.moe/i77vfb.jpg" alt="Annie Peters" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/i77vfb.jpg" alt="Annie Peters" class="profile-picture">
                     <h3 class="member-name">Annie Peters</h3>
                     <p class="member-title">Vocalist</p>
                     <p class="member-bio">Annie's versatile voice shines in both solo and ensemble singing.</p>
                 </div>
                 <div class="team-member" data-member-id="conrad-newell">
-                    <img src="https://files.catbox.moe/lbnatl.jpg" alt="Conrad Newell" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/lbnatl.jpg" alt="Conrad Newell" class="profile-picture">
                     <h3 class="member-name">Conrad Newell</h3>
                     <p class="member-title">French Hornist</p>
                     <p class="member-bio">Conrad brings the warm, noble sound of the French horn to the group.</p>
                 </div>
                 <div class="team-member" data-member-id="grace-masone">
-                    <img src="https://files.catbox.moe/6v4jml.jpg" alt="Grace Masone" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/6v4jml.jpg" alt="Grace Masone" class="profile-picture">
                     <h3 class="member-name">Grace Masone</h3>
                     <p class="member-title">Pianist</p>
                     <p class="member-bio">Grace's gentle piano playing skills add the right amount of flare to our pieces.</p>
                 </div>
                 <div class="team-member" data-member-id="genevieve-currie">
-                    <img src="https://files.catbox.moe/bmzkay.jpg" alt="Genevieve Currie" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/bmzkay.jpg" alt="Genevieve Currie" class="profile-picture">
                     <h3 class="member-name">Genevieve Currie</h3>
                     <p class="member-title">Clarinetist</p>
                     <p class="member-bio">Genevieve's clarinet provides lyrical melodies and woodwind color.</p>
                 </div>
                 <div class="team-member" data-member-id="matthew-arnold">
-                    <img src="https://files.catbox.moe/ow9awz.jpg" alt="Matthew Arnold" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/ow9awz.jpg" alt="Matthew Arnold" class="profile-picture">
                     <h3 class="member-name">Matthew Arnold</h3>
                     <p class="member-title">Cellist</p>
                     <p class="member-bio">Matthew lays down the resonant bass lines and soulful cello solos.</p>
                 </div>
                 <div class="team-member" data-member-id="gray-krois">
-                    <img src="https://files.catbox.moe/tps86k.png" alt="Gray Krois" class="profile-picture">
+                    <img loading="lazy" src="https://files.catbox.moe/tps86k.png" alt="Gray Krois" class="profile-picture">
                     <h3 class="member-name">Gray Krois</h3>
                     <p class="member-title">Vocalist</p>
                     <p class="member-bio">Gray is a vocalist known for her smooth tone and expressive singing style.</p>
@@ -744,144 +756,144 @@
 
                 <div class="gallery-entry" data-members="carolyn-hopstaken">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/idhq36.JPG">
-                        <img src="https://files.catbox.moe/idhq36.JPG" alt="Carolyn Speaking">
+                        <img loading="lazy" src="https://files.catbox.moe/idhq36.JPG" alt="Carolyn Speaking">
                     </div>
                     <p class="gallery-caption">Carolyn Speaking</p>
                 </div>
 
                 <div class="gallery-entry" data-members="austin-bradford">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/icaa5g.mp4">
-                        <video src="https://files.catbox.moe/icaa5g.mp4" muted preload="metadata" alt="City of Stars Performance Snippet"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/icaa5g.mp4" muted preload="metadata" alt="City of Stars Performance Snippet"></video>
                     </div>
                     <p class="gallery-caption">City of Stars (Snippet)</p>
                 </div>
 
                 <div class="gallery-entry" data-members="michael-mininberg austin-bradford">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/ynzhpp.mp4">
-                        <video src="https://files.catbox.moe/ynzhpp.mp4" muted preload="metadata" alt="New York, New York"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/ynzhpp.mp4" muted preload="metadata" alt="New York, New York"></video>
                     </div>
                     <p class="gallery-caption">New York, New York</p>
                 </div>
 
                 <div class="gallery-entry" data-members="michael-mininberg">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/wrq3lk.JPG">
-                        <img src="https://files.catbox.moe/wrq3lk.JPG" alt="Michael on Trumpet">
+                        <img loading="lazy" src="https://files.catbox.moe/wrq3lk.JPG" alt="Michael on Trumpet">
                     </div>
                     <p class="gallery-caption">Michael on Trumpet</p>
                 </div>
 
                 <div class="gallery-entry" data-members="mackenzie-kassner genevieve-currie">
                    <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/i4qxt6.mov">
-                       <video src="https://files.catbox.moe/i4qxt6.mov" muted preload="metadata" alt="Married Life"></video>
+                       <video loading="lazy" src="https://files.catbox.moe/i4qxt6.mov" muted preload="metadata" alt="Married Life"></video>
                    </div>
                    <p class="gallery-caption">Married Life</p>
                 </div>
                 <div class="gallery-entry" data-members="austin-bradford">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/pckdzr.JPG">
-                        <img src="https://files.catbox.moe/pckdzr.JPG" alt="Austin on Piano">
+                        <img loading="lazy" src="https://files.catbox.moe/pckdzr.JPG" alt="Austin on Piano">
                     </div>
                     <p class="gallery-caption">Austin on Piano</p>
                 </div>
 
                 <div class="gallery-entry" data-members="mackenzie-kassner">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/kqj7n7.mp4">
-                        <video src="https://files.catbox.moe/kqj7n7.mp4" muted preload="metadata" alt="Somewhere Over The Rainbow"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/kqj7n7.mp4" muted preload="metadata" alt="Somewhere Over The Rainbow"></video>
                     </div>
                     <p class="gallery-caption">Somewhere Over The Rainbow</p>
                 </div>
                 <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/kqzhc7.JPG">
-                        <img src="https://files.catbox.moe/kqzhc7.JPG" alt="Annie and Carolyn">
+                        <img loading="lazy" src="https://files.catbox.moe/kqzhc7.JPG" alt="Annie and Carolyn">
                     </div>
                     <p class="gallery-caption">Moon River</p>
                 </div>
 
                 <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/b1anc1.mp4">
-                        <video src="https://files.catbox.moe/b1anc1.mp4" muted preload="metadata" alt="Moon River"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/b1anc1.mp4" muted preload="metadata" alt="Moon River"></video>
                     </div>
                     <p class="gallery-caption">Moon River</p>
                 </div>
                 <div class="gallery-entry" data-members="mackenzie-kassner carolyn-hopstaken matthew-arnold sylvia-callemo michael-mininberg austin-bradford alisen-mctague genevieve-currie">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/1sagfs.jpg">
-                        <img src="https://files.catbox.moe/1sagfs.jpg" alt="Grandma Droniak">
+                        <img loading="lazy" src="https://files.catbox.moe/1sagfs.jpg" alt="Grandma Droniak">
                     </div>
                     <p class="gallery-caption">Grandma Droniak</p>
                 </div>
 
                 <div class="gallery-entry" data-members="michael-mininberg">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/wg9vzm.JPG">
-                        <img src="https://files.catbox.moe/wg9vzm.JPG" alt="My Way"></img>
+                        <img loading="lazy" src="https://files.catbox.moe/wg9vzm.JPG" alt="My Way"></img>
                     </div>
                     <p class="gallery-caption">My Way</p>
                 </div>
 
                 <div class="gallery-entry" data-members="genevieve-currie">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/9321mg.mp4">
-                        <video src="https://files.catbox.moe/9321mg.mp4" muted preload="metadata" alt="Danny Boy"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/9321mg.mp4" muted preload="metadata" alt="Danny Boy"></video>
                     </div>
                     <p class="gallery-caption">Danny Boy</p>
                 </div>
 
                 <div class="gallery-entry" data-members="michael-mininberg austin-bradford carolyn-hopstaken sylvia-callemo mackenzie-kassner genevieve-currie matthew-arnold">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/glo995.JPG">
-                        <img src="https://files.catbox.moe/glo995.JPG" alt="Somewhere Over The Rainbow"></img>
+                        <img loading="lazy" src="https://files.catbox.moe/glo995.JPG" alt="Somewhere Over The Rainbow"></img>
                     </div>
                     <p class="gallery-caption">Somewhere Over The Rainbow</p>
                 </div>
 
                 <div class="gallery-entry" data-members="matthew-arnold">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/jda2qx.mp4">
-                        <video src="https://files.catbox.moe/jda2qx.mp4" muted preload="metadata" alt="Sarabande"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/jda2qx.mp4" muted preload="metadata" alt="Sarabande"></video>
                     </div>
                     <p class="gallery-caption">Sarabande</p>
                 </div>
 
                 <div class="gallery-entry" data-members="michael-mininberg">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/w9mj3n.mp4">
-                        <video src="https://files.catbox.moe/w9mj3n.mp4" muted preload="metadata" alt="My Way"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/w9mj3n.mp4" muted preload="metadata" alt="My Way"></video>
                     </div>
                     <p class="gallery-caption">My Way</p>
                 </div>
 
                 <div class="gallery-entry" data-members="carolyn-hopstaken matthew-arnold">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/p77azz.mp4">
-                        <video src="https://files.catbox.moe/p77azz.mp4" muted preload="metadata" alt="The Swan"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/p77azz.mp4" muted preload="metadata" alt="The Swan"></video>
                     </div>
                     <p class="gallery-caption">The Swan</p>
                 </div>
 
                 <div class="gallery-entry" data-members="carolyn-hopstaken">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/wv5si1.mp4">
-                        <video src="https://files.catbox.moe/wv5si1.mp4" muted preload="metadata" alt="Blumenlied"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/wv5si1.mp4" muted preload="metadata" alt="Blumenlied"></video>
                     </div>
                     <p class="gallery-caption">Blumenlied</p>
                 </div>
 
                 <div class="gallery-entry" data-members="matthew-arnold genevieve-currie alisen-mctague mackenzie-kassner carolyn-hopstaken sylvia-callemo austin-bradford michael-mininberg">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/zujqqq.jpg">
-                        <img src="https://files.catbox.moe/zujqqq.jpg" alt="Concert 2 Group Picture">
+                        <img loading="lazy" src="https://files.catbox.moe/zujqqq.jpg" alt="Concert 2 Group Picture">
                     </div>
                     <p class="gallery-caption">Concert 2 Group Picture</p>
                 </div>
 
                 <div class="gallery-entry" data-members="mackenzie-kassner genevieve-currie">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/hpmfus.mp4">
-                        <video src="https://files.catbox.moe/hpmfus.mp4" muted preload="metadata" alt="Allouete"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/hpmfus.mp4" muted preload="metadata" alt="Allouete"></video>
                     </div>
                     <p class="gallery-caption">Allouete</p>
                 </div>
 
                 <div class="gallery-entry" data-members="austin-bradford michael-mininberg">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/qsqjip.mp4">
-                        <video src="https://files.catbox.moe/qsqjip.mp4" muted preload="metadata" alt="Feels So Good"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/qsqjip.mp4" muted preload="metadata" alt="Feels So Good"></video>
                     </div>
                     <p class="gallery-caption">Feels So Good</p>
                 </div>
 
                 <div class="gallery-entry" data-members="matthew-arnold">
                     <div class="gallery-media-item gallery-item-video" data-type="video" data-src="https://files.catbox.moe/ubop18.mp4">
-                        <video src="https://files.catbox.moe/ubop18.mp4" muted preload="metadata" alt="Salut D'amour"></video>
+                        <video loading="lazy" src="https://files.catbox.moe/ubop18.mp4" muted preload="metadata" alt="Salut D'amour"></video>
                     </div>
                     <p class="gallery-caption">Salut D'amour</p>
                 </div>
