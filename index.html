@@ -1132,7 +1132,7 @@
         // Function to set the video to its first frame and pause it
         const showFirstFrameAsThumbnail = () => {
           video.pause(); // Pause first, in case it was somehow playing due to other attributes/browser behavior
-          video.currentTime = 0.1; // Seek slightly past the very beginning of the video
+          video.currentTime = 1.0; // Seek slightly past the very beginning of the video
           // After setting currentTime, the video should remain paused and display that frame.
         };
 
@@ -1156,7 +1156,7 @@
         video.load();
 
         // Note: The 'autoplay' attribute is intentionally NOT being set by this script for thumbnail generation.
-        // Relying on explicit .load() and handling the 'loadeddata' event to set 'currentTime = 0.1' and 'pause()'
+        // Relying on explicit .load() and handling the 'loadeddata' event to set 'currentTime = 1.0' and 'pause()'
         // is generally a more robust method for displaying the first frame as a static thumbnail,
         // particularly on mobile devices and for videos that might be initially hidden or off-screen.
       });
