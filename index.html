@@ -770,7 +770,7 @@
                 </div>
                 -->
 
-                <div class="gallery-entry" data-members="carolyn-hopstaken alisen-mctague mackenzie-kassner michael-mininberg austin-bradford sylvia-callemo annie-peters conrad-newell grace-masone genevieve-currie matthew-arnold gray-krois">
+                <div class="gallery-entry" data-members="carolyn-hopstaken alisen-mctague mackenzie-kassner michael-mininberg austin-bradford sylvia-callemo annie-peters grace-masone genevieve-currie matthew-arnold">
                     <div class="gallery-media-item" data-type="image" data-src="https://files.catbox.moe/xmlh6y.JPG">
                         <img loading="lazy" src="https://files.catbox.moe/xmlh6y.JPG" alt="Ridgefield Crossings">
                     </div>
@@ -1214,10 +1214,14 @@
 
                         if (clonedMediaItem) {
                             clonedMediaItem.addEventListener('click', function(event) {
-                                event.stopPropagation(); 
-                                closeMemberModal();     
-                                openGalleryModal(this); 
+                                event.stopPropagation();
+                                closeMemberModal();
+                                openGalleryModal(this);
                             });
+                            const vid = clonedMediaItem.querySelector('video');
+                            if (vid) {
+                                setupGalleryVideo(vid);
+                            }
                         }
                         memberModalGalleryGrid.appendChild(clonedEntry);
                     }
@@ -1256,44 +1260,26 @@
 
     <script>
     // Script for video thumbnail generation (first frame)
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+    function setupGalleryVideo(video) {
+      video.setAttribute('playsinline', '');
+      video.playsInline = true;
+      video.muted = true;
+
+      const showFirstFrameAsThumbnail = () => {
+        video.pause();
+        video.currentTime = 1.0;
+      };
+
+      video.addEventListener('loadeddata', showFirstFrameAsThumbnail, { once: true });
+      video.preload = isMobile ? 'metadata' : 'auto';
+      video.load();
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-      document.querySelectorAll('.gallery-media-item video').forEach(video => {
-        // Ensure necessary attributes for silent inline playback or frame grabbing
-        video.setAttribute('playsinline', ''); // HTML attribute
-        video.playsInline = true;             // JS property, crucial for iOS
-        video.muted = true;                   // Essential for any programmatic play/autoplay attempts
-
-        // Function to set the video to its first frame and pause it
-        const showFirstFrameAsThumbnail = () => {
-          video.pause(); // Pause first, in case it was somehow playing due to other attributes/browser behavior
-          video.currentTime = 1.0; // Seek slightly past the very beginning of the video
-          // After setting currentTime, the video should remain paused and display that frame.
-        };
-
-        // Add the event listener for 'loadeddata'.
-        // This event fires when the browser has loaded data for the current frame.
-        // For 'preload="metadata"', this often means the first frame is ready.
-        // Using { once: true } ensures the listener is removed after it fires once.
-        video.addEventListener('loadeddata', showFirstFrameAsThumbnail, { once: true });
-
-        // Set the preload attribute based on whether the device is mobile or desktop
-        if (isMobile) {
-          video.preload = 'metadata'; // On mobile, advise browser to fetch only metadata (e.g., dimensions, first frame).
-        } else {
-          video.preload = 'auto';     // On desktop, advise browser it can download more, even the entire video.
-        }
-
-        // Explicitly call video.load().
-        // This tells the browser to start loading the video data according to the 'preload' attribute.
-        // This is important to reliably trigger the 'loadeddata' event, especially if 'autoplay'
-        // is not used or is unreliable (as is often the case on mobile for this purpose).
-        video.load();
-
-        // Note: The 'autoplay' attribute is intentionally NOT being set by this script for thumbnail generation.
-        // Relying on explicit .load() and handling the 'loadeddata' event to set 'currentTime = 1.0' and 'pause()'
-        // is generally a more robust method for displaying the first frame as a static thumbnail,
-        // particularly on mobile devices and for videos that might be initially hidden or off-screen.
+      document.querySelectorAll('.gallery-media-item video').forEach(vid => {
+        setupGalleryVideo(vid);
       });
     });
     </script>
