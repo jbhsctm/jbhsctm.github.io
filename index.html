@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,9 @@
     <meta name="google-site-verification" content="qu7orEALhgSz4HmitgSE3kXMM8nvn52BYbMf2nZq_tA" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         /* ==========================================
            CSS Variables & Reset
@@ -184,7 +187,7 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s var(--transition-smooth),
-                        transform 0.8s var(--transition-smooth);
+                transform 0.8s var(--transition-smooth);
         }
 
         .section-inner.visible {
@@ -260,8 +263,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         .hero h1 {
@@ -285,19 +295,18 @@
         /* Hero Photo Box - NEW */
         .hero-photo-box {
             flex-shrink: 0;
-            width: min-content; 
-            max-width: 750px; /* Increased slightly to give the right side more room */
-            height: 400px; 
-            margin-left: -30px; /* Kept your preference for leaning left */
-            
+            width: min-content;
+            max-width: 750px;
+            height: 400px;
+            margin-left: -30px;
+
             background: white;
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-large);
             overflow: hidden;
             position: relative;
             border: 4px solid rgba(255, 255, 255, 0.8);
-            
-            /* Added: Ensures the internal image stays centered */
+
             display: flex;
             justify-content: center;
         }
@@ -305,11 +314,9 @@
         .hero-photo-box img {
             width: auto;
             height: 100%;
-            object-fit: cover; 
-            /* Added: This ensures the "surgical crop" happens equally on both sides */
-            object-position: center; 
-            /* Subtle zoom to keep the edges clean */
-            transform: scale(1.02); 
+            object-fit: cover;
+            object-position: center;
+            transform: scale(1.02);
             display: block;
         }
 
@@ -427,31 +434,42 @@
             gap: 1rem;
             height: 450px;
         }
-        
+
         .bubble {
             position: relative;
             border-radius: var(--radius-lg);
             overflow: hidden;
             transition: transform 0.4s var(--transition-smooth),
-                        box-shadow 0.4s var(--transition-smooth);
+                box-shadow 0.4s var(--transition-smooth);
             background: linear-gradient(135deg, #f0f0ff 0%, #fff0f5 100%);
         }
-        
+
         .bubble:hover {
             transform: scale(1.02);
             box-shadow: var(--shadow-soft);
         }
-        
+
         .bubble img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        
-        .bubble:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 3; }
-        .bubble:nth-child(2) { grid-column: 2 / 3; grid-row: 1 / 2; }
-        .bubble:nth-child(3) { grid-column: 2 / 3; grid-row: 2 / 3; }
+
+        .bubble:nth-child(1) {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+        }
+
+        .bubble:nth-child(2) {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .bubble:nth-child(3) {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+        }
 
         /* ==========================================
            Team Section
@@ -695,12 +713,65 @@
         }
 
         /* ==========================================
+           Gallery Layout & Dynamic Arrow
+        ========================================== */
+        .gallery-content-layout {
+            display: flex;
+            gap: 4rem;
+            align-items: stretch;
+            /* This ensures the arrow perfectly matches the grid's height */
+            width: 100%;
+        }
+
+        .gallery-scroll-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90px;
+            flex-shrink: 0;
+            padding-top: 2rem;
+            /* Pushes the start down a bit from the first row */
+            padding-bottom: 1rem;
+        }
+
+        .scroll-text {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--color-text);
+            /* Matches the dark gray Gallery heading */
+            text-align: center;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            opacity: 0.85;
+        }
+
+        .scroll-line {
+            flex-grow: 1;
+            /* Automatically stretches to fill the row height */
+            width: 1px;
+            /* Lightweight design */
+            background-color: var(--color-text);
+            opacity: 0.85;
+        }
+
+        .scroll-arrowhead {
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid var(--color-text);
+            opacity: 0.85;
+        }
+
+        /* ==========================================
            Gallery Grid - In-place Expansion System
         ========================================== */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
+            width: 100%;
         }
 
         .video-card {
@@ -749,8 +820,9 @@
             0% {
                 border-color: var(--color-highlight-border);
                 box-shadow: 0 0 0 4px var(--color-highlight),
-                            var(--shadow-large);
+                    var(--shadow-large);
             }
+
             100% {
                 border-color: transparent;
                 box-shadow: var(--shadow-soft);
@@ -943,7 +1015,7 @@
             color: white;
             font-weight: 600;
             transition: transform 0.3s var(--transition-smooth),
-                        box-shadow 0.3s var(--transition-smooth);
+                box-shadow 0.3s var(--transition-smooth);
             box-shadow: 0 4px 16px rgba(131, 58, 180, 0.3);
         }
 
@@ -993,7 +1065,7 @@
             background: linear-gradient(135deg, #f8f9ff 0%, #fff8f8 100%);
             border-radius: var(--radius-md);
             transition: transform 0.3s var(--transition-smooth),
-                        box-shadow 0.3s var(--transition-smooth);
+                box-shadow 0.3s var(--transition-smooth);
         }
 
         .founder-item:hover {
@@ -1066,7 +1138,7 @@
             background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
             border-radius: var(--radius-lg);
             transition: transform 0.3s var(--transition-smooth),
-                        box-shadow 0.3s var(--transition-smooth);
+                box-shadow 0.3s var(--transition-smooth);
             box-shadow: 0 8px 24px rgba(131, 58, 180, 0.3);
         }
 
@@ -1163,13 +1235,39 @@
                 height: 500px;
             }
 
-            .bubble:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 3; }
-            .bubble:nth-child(2) { grid-column: 2 / 3; grid-row: 1 / 2; }
-            .bubble:nth-child(3) { grid-column: 2 / 3; grid-row: 2 / 3; }
-            .bubble:nth-child(4) { grid-column: 1 / 3; grid-row: 3 / 4; }
-            .bubble:nth-child(5) { grid-column: 1 / 2; grid-row: 4 / 5; }
-            .bubble:nth-child(6) { grid-column: 2 / 3; grid-row: 4 / 5; }
-            .bubble:nth-child(7) { display: none; }
+            .bubble:nth-child(1) {
+                grid-column: 1 / 2;
+                grid-row: 1 / 3;
+            }
+
+            .bubble:nth-child(2) {
+                grid-column: 2 / 3;
+                grid-row: 1 / 2;
+            }
+
+            .bubble:nth-child(3) {
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+            }
+
+            .bubble:nth-child(4) {
+                grid-column: 1 / 3;
+                grid-row: 3 / 4;
+            }
+
+            .bubble:nth-child(5) {
+                grid-column: 1 / 2;
+                grid-row: 4 / 5;
+            }
+
+            .bubble:nth-child(6) {
+                grid-column: 2 / 3;
+                grid-row: 4 / 5;
+            }
+
+            .bubble:nth-child(7) {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1250,6 +1348,15 @@
                 gap: 1rem;
             }
 
+            /* Hide dynamic arrow on mobile & collapse layout */
+            .gallery-content-layout {
+                flex-direction: column;
+            }
+
+            .gallery-scroll-indicator {
+                display: none;
+            }
+
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
@@ -1277,11 +1384,12 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="logo-container">
-             <img src="https://files.catbox.moe/uqv87a.ico" alt="CTM Logo" class="logo-image">
+            <img src="https://files.catbox.moe/uqv87a.ico" alt="CTM Logo" class="logo-image">
             <span class="logo-text">Barlow CTM</span>
         </div>
         <nav>
@@ -1315,7 +1423,6 @@
                 <!-- NEW: Hero Photo Box -->
                 <div class="hero-photo-box">
                     <img src="https://files.catbox.moe/56rghn.jpg" alt="Barlow CTM Group Photo" class="hero-photo">
-                    </div>
                 </div>
             </div>
         </section>
@@ -1329,7 +1436,9 @@
                             <span class="section-label">Our Story</span>
                             <h2 class="section-title">About Us</h2>
                             <p class="section-text">
-                                Joel Barlow High School's CTM (Connecting Through Music) is a student-run ensemble at Joel Barlow High School. We perform at resident homes and related venues, sharing our love and joy of music.
+                                Joel Barlow High School's CTM (Connecting Through Music) is a student-run ensemble at
+                                Joel Barlow High School. We perform at resident homes and related venues, sharing our
+                                love and joy of music.
                             </p>
                             <div class="about-highlights">
                                 <div class="highlight-item">
@@ -1347,17 +1456,17 @@
                             </div>
                         </div>
                     </div>
-                        <div class="about-bubbles" id="aboutBubbles">
-                            <div class="bubble">
-                                <img src="https://files.catbox.moe/w0d1eu.JPG" alt="Barlow CTM performance">
-                            </div>
-                            <div class="bubble">
-                                <img src="https://files.catbox.moe/ith6gn.JPG" alt="Barlow CTM group photo">
-                            </div>
-                            <div class="bubble">
-                                <img src="https://files.catbox.moe/p74z13.jpeg" alt="Barlow CTM singing">
-                            </div>
+                    <div class="about-bubbles" id="aboutBubbles">
+                        <div class="bubble">
+                            <img src="https://files.catbox.moe/w0d1eu.JPG" alt="Barlow CTM performance">
                         </div>
+                        <div class="bubble">
+                            <img src="https://files.catbox.moe/ith6gn.JPG" alt="Barlow CTM group photo">
+                        </div>
+                        <div class="bubble">
+                            <img src="https://files.catbox.moe/p74z13.jpeg" alt="Barlow CTM singing">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1368,7 +1477,8 @@
                 <div class="team-header">
                     <span class="section-label">The Ensemble</span>
                     <h2 class="section-title">Meet the Team</h2>
-                    <p class="section-text">Click on a member to learn more about them and see which songs they perform.</p>
+                    <p class="section-text">Click on a member to learn more about them and see which songs they perform.
+                    </p>
                 </div>
 
                 <div class="team-grid" id="teamGrid">
@@ -1376,7 +1486,8 @@
                     <div class="member-card" data-member="member-1">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/gzgdjh.png" alt="Carolyn Hopstaken" class="member-photo-img">
+                            <img src="https://files.catbox.moe/gzgdjh.png" alt="Carolyn Hopstaken"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Carolyn Hopstaken</div>
@@ -1392,6 +1503,14 @@
                                     <span class="song-tag" data-song="song-9">Moon River</span>
                                     <span class="song-tag" data-song="song-15">Swan Lake</span>
                                     <span class="song-tag" data-song="song-19">Nocturne Op. 9 No. 2</span>
+                                    <span class="song-tag" data-song="song-27">Charlie Brown Christmas Medley</span>
+                                    <span class="song-tag" data-song="song-28">First Noel</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
+                                    <span class="song-tag" data-song="song-31">Hey Jude</span>
+                                    <span class="song-tag" data-song="song-33">Lean On Me</span>
+                                    <span class="song-tag" data-song="song-34">Silent Night</span>
+                                    <span class="song-tag" data-song="song-27">Charlie Brown Christmas Medley</span>
+                                    <span class="song-tag" data-song="song-28">First Noel</span>
                                 </div>
                             </div>
                         </div>
@@ -1401,7 +1520,8 @@
                     <div class="member-card" data-member="member-2">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/ojjogs.jpg" alt="Alisen McTague" class="member-photo-img">
+                            <img src="https://files.catbox.moe/ojjogs.jpg" alt="Alisen McTague"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Alisen McTague</div>
@@ -1413,6 +1533,12 @@
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
                                     <span class="song-tag" data-song="song-16">Basin Street Blues</span>
+                                    <span class="song-tag" data-song="song-26">Auld Lang Syne</span>
+                                    <span class="song-tag" data-song="song-28">First Noel</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
+                                    <span class="song-tag" data-song="song-31">Hey Jude</span>
+                                    <span class="song-tag" data-song="song-33">Lean On Me</span>
+                                    <span class="song-tag" data-song="song-34">Silent Night</span>
                                 </div>
                             </div>
                         </div>
@@ -1421,7 +1547,8 @@
                     <div class="member-card" data-member="member-3">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/6vt7mw.jpg" alt="Mackenzie Kassner" class="member-photo-img">
+                            <img src="https://files.catbox.moe/6vt7mw.jpg" alt="Mackenzie Kassner"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Mackenzie Kassner</div>
@@ -1440,6 +1567,13 @@
                                     <span class="song-tag" data-song="song-10">Somewhere Over The Rainbow</span>
                                     <span class="song-tag" data-song="song-9">Moon River</span>
                                     <span class="song-tag" data-song="song-3">Allouette</span>
+                                    <span class="song-tag" data-song="song-26">Auld Lang Syne</span>
+                                    <span class="song-tag" data-song="song-28">First Noel</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
+                                    <span class="song-tag" data-song="song-31">Hey Jude</span>
+                                    <span class="song-tag" data-song="song-32">In The Bleak Midwinter</span>
+                                    <span class="song-tag" data-song="song-33">Lean On Me</span>
+                                    <span class="song-tag" data-song="song-34">Silent Night</span>
                                 </div>
                             </div>
                         </div>
@@ -1448,7 +1582,8 @@
                     <div class="member-card" data-member="member-4">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/8gnmrg.jpg" alt="Michael Mininberg" class="member-photo-img">
+                            <img src="https://files.catbox.moe/8gnmrg.jpg" alt="Michael Mininberg"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Michael Mininberg</div>
@@ -1465,6 +1600,11 @@
                                     <span class="song-tag" data-song="song-22">Caravan</span>
                                     <span class="song-tag" data-song="song-21">Austin's Song</span>
                                     <span class="song-tag" data-song="song-20">La Vie En Rose</span>
+                                    <span class="song-tag" data-song="song-26">Auld Lang Syne</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
+                                    <span class="song-tag" data-song="song-31">Hey Jude</span>
+                                    <span class="song-tag" data-song="song-33">Lean On Me</span>
+                                    <span class="song-tag" data-song="song-34">Silent Night</span>
                                 </div>
                             </div>
                         </div>
@@ -1473,7 +1613,8 @@
                     <div class="member-card" data-member="member-5">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/bcmknv.jpg" alt="Austin Bradford" class="member-photo-img">
+                            <img src="https://files.catbox.moe/bcmknv.jpg" alt="Austin Bradford"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Austin Bradford</div>
@@ -1500,7 +1641,8 @@
                     <div class="member-card" data-member="member-6">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/bxdmj2.jpg" alt="Sylvia Callemo" class="member-photo-img">
+                            <img src="https://files.catbox.moe/bxdmj2.jpg" alt="Sylvia Callemo"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Sylvia Callemo</div>
@@ -1556,6 +1698,8 @@
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
                                     <span class="song-tag" data-song="song-24">Edelweiss</span>
+                                    <span class="song-tag" data-song="song-28">First Noel</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
                                 </div>
                             </div>
                         </div>
@@ -1564,7 +1708,8 @@
                     <div class="member-card" data-member="member-9">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/cjbo6u.jpg" alt="Genevieve Currie" class="member-photo-img">
+                            <img src="https://files.catbox.moe/cjbo6u.jpg" alt="Genevieve Currie"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Genevieve Currie</div>
@@ -1587,7 +1732,8 @@
                     <div class="member-card" data-member="member-10">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/pq8afb.jpg" alt="Matthew Arnold" class="member-photo-img">
+                            <img src="https://files.catbox.moe/pq8afb.jpg" alt="Matthew Arnold"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Matthew Arnold</div>
@@ -1605,6 +1751,9 @@
                                     <span class="song-tag" data-song="song-15">Swan Lake</span>
                                     <span class="song-tag" data-song="song-17">Beethoven Cello Sonata</span>
                                     <span class="song-tag" data-song="song-20">La Vie En Rose</span>
+                                    <span class="song-tag" data-song="song-27">Charlie Brown Christmas Medley</span>
+                                    <span class="song-tag" data-song="song-28">First Noel</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
                                 </div>
                             </div>
                         </div>
@@ -1613,7 +1762,8 @@
                     <div class="member-card" data-member="member-11">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE" class="member-photo-img">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Sophie Goldman</div>
@@ -1624,7 +1774,8 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Hallelujah</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
+                                    <span class="song-tag" data-song="song-32">In The Bleak Midwinter</span>
                                 </div>
                             </div>
                         </div>
@@ -1633,7 +1784,8 @@
                     <div class="member-card" data-member="member-12">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE" class="member-photo-img">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Sassy Wood</div>
@@ -1644,7 +1796,7 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Hallelujah</span>
+
                                 </div>
                             </div>
                         </div>
@@ -1653,7 +1805,8 @@
                     <div class="member-card" data-member="member-13">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE" class="member-photo-img">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Sophia Tian</div>
@@ -1664,7 +1817,7 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Hallelujah</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
                                 </div>
                             </div>
                         </div>
@@ -1673,7 +1826,8 @@
                     <div class="member-card" data-member="member-14">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE" class="member-photo-img">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Angelina Rosa</div>
@@ -1684,7 +1838,7 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Hallelujah</span>
+
                                 </div>
                             </div>
                         </div>
@@ -1693,7 +1847,8 @@
                     <div class="member-card" data-member="member-15">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE" class="member-photo-img">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Nicole Stranik</div>
@@ -1704,7 +1859,9 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Hallelujah</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
+                                    <span class="song-tag" data-song="song-30">God Rest Ye Merry Gentlemen</span>
+                                    <span class="song-tag" data-song="song-33">Lean On Me</span>
                                 </div>
                             </div>
                         </div>
@@ -1713,7 +1870,8 @@
                     <div class="member-card" data-member="member-16">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE" class="member-photo-img">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Molly Lapatine</div>
@@ -1724,7 +1882,7 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Hallelujah</span>
+
                                 </div>
                             </div>
                         </div>
@@ -1733,7 +1891,8 @@
                     <div class="member-card" data-member="member-17">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE" class="member-photo-img">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Solenne Hopstaken</div>
@@ -1744,7 +1903,7 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Hallelujah</span>
+
                                 </div>
                             </div>
                         </div>
@@ -1753,7 +1912,8 @@
                     <div class="member-card" data-member="member-18">
                         <button class="member-close-btn" aria-label="Close">×</button>
                         <div class="member-photo">
-                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE" class="member-photo-img">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
                         </div>
                         <div class="member-info">
                             <div class="member-name">Abigail Kassner</div>
@@ -1764,7 +1924,95 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Hallelujah</span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="member-card" data-member="member-19">
+                        <button class="member-close-btn" aria-label="Close">×</button>
+                        <div class="member-photo">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
+                        </div>
+                        <div class="member-info">
+                            <div class="member-name">Josie Avidon</div>
+                            <div class="member-role">Guitar & Vocals</div>
+                        </div>
+                        <div class="member-expanded-content">
+                            <p class="member-bio">Bio text goes here describing the member.</p>
+                            <div class="member-songs">
+                                <div class="member-songs-label">Featured In</div>
+                                <div class="member-songs-list">
+                                    <span class="song-tag" data-song="song-25">All Of Me</span>
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="member-card" data-member="member-20">
+                        <button class="member-close-btn" aria-label="Close">×</button>
+                        <div class="member-photo">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
+                        </div>
+                        <div class="member-info">
+                            <div class="member-name">Rachel Avidon</div>
+                            <div class="member-role">Vocals</div>
+                        </div>
+                        <div class="member-expanded-content">
+                            <p class="member-bio">Bio text goes here describing the member.</p>
+                            <div class="member-songs">
+                                <div class="member-songs-label">Featured In</div>
+                                <div class="member-songs-list">
+                                    <span class="song-tag" data-song="song-25">All Of Me</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="member-card" data-member="member-21">
+                        <button class="member-close-btn" aria-label="Close">×</button>
+                        <div class="member-photo">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
+                        </div>
+                        <div class="member-info">
+                            <div class="member-name">Sophia Arnott</div>
+                            <div class="member-role">Piano</div>
+                        </div>
+                        <div class="member-expanded-content">
+                            <p class="member-bio">Bio text goes here describing the member.</p>
+                            <div class="member-songs">
+                                <div class="member-songs-label">Featured In</div>
+                                <div class="member-songs-list">
+                                    <span class="song-tag" data-song="song-29">Frosty The Snowman</span>
+                                    <span class="song-tag" data-song="song-35">Too Little Too Late</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="member-card" data-member="member-22">
+                        <button class="member-close-btn" aria-label="Close">×</button>
+                        <div class="member-photo">
+                            <img src="https://files.catbox.moe/7b782d.jpg" alt="PHOTO NOT AVAILABLE"
+                                class="member-photo-img">
+                        </div>
+                        <div class="member-info">
+                            <div class="member-name">Randy Rivera</div>
+                            <div class="member-role">Piano</div>
+                        </div>
+                        <div class="member-expanded-content">
+                            <p class="member-bio">Bio text goes here describing the member.</p>
+                            <div class="member-songs">
+                                <div class="member-songs-label">Featured In</div>
+                                <div class="member-songs-list">
+                                    <span class="song-tag" data-song="song-30">God Rest Ye Merry Gentlemen</span>
+                                    <span class="song-tag" data-song="song-31">Hey Jude</span>
+                                    <span class="song-tag" data-song="song-33">Lean On Me</span>
                                 </div>
                             </div>
                         </div>
@@ -1782,441 +2030,684 @@
                     <p class="section-text">Watch recordings from our performances at local venues.</p>
                 </div>
 
-                <div class="gallery-grid" id="galleryGrid">
-                    <!--
-                    ============================================================
-                    HOW TO ADD VIDEOS:
-                    ============================================================
-                    For each video, copy this template and fill in:
-                    1. data-video: A unique ID (e.g., "song-1", "song-2")
-                    2. data-video-src: Path to your video file (e.g., "videos/amazing-grace.mp4")
-                    3. Video title in the .video-title div
-                    4. Thumbnail image path in the img src (use a compressed frame from the video)
-                    
-                    THUMBNAIL TIPS FOR FAST LOADING:
-                    - Extract a frame from your video
-                    - Compress it to ~100KB or less (use tinypng.com or similar)
-                    - Save as JPG at 80% quality, around 640x360 pixels
-                    - Name it to match the video (e.g., "amazing-grace-thumb.jpg")
-                    ============================================================
-                    -->
+                <!-- NEW WRAPPER START -->
+                <div class="gallery-content-layout">
 
-                    <!-- Video 1 - Example with thumbnail -->
-                    <div class="video-card" data-video="song-1" data-video-src="https://files.catbox.moe/9bqdch.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Salut D'amour</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/n0xaj0.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                    <!-- DYNAMIC ARROW COMPONENT -->
+                    <div class="gallery-scroll-indicator">
+                        <span class="scroll-text">SCROLL FOR<br>NEWER VIDEOS</span>
+                        <div class="scroll-line"></div>
+                        <div class="scroll-arrowhead"></div>
+                    </div>
+
+                    <div class="gallery-grid" id="galleryGrid">
+                        <!--
+                        ============================================================
+                        HOW TO ADD VIDEOS:
+                        ============================================================
+                        For each video, copy this template and fill in:
+                        1. data-video: A unique ID (e.g., "song-1", "song-2")
+                        2. data-video-src: Path to your video file (e.g., "videos/amazing-grace.mp4")
+                        3. Video title in the .video-title div
+                        4. Thumbnail image path in the img src (use a compressed frame from the video)
+                        
+                        THUMBNAIL TIPS FOR FAST LOADING:
+                        - Extract a frame from your video
+                        - Compress it to ~100KB or less (use tinypng.com or similar)
+                        - Save as JPG at 80% quality, around 640x360 pixels
+                        - Name it to match the video (e.g., "amazing-grace-thumb.jpg")
+                        ============================================================
+                        -->
+
+                        <!-- Video 1 - Example with thumbnail -->
+                        <div class="video-card" data-video="song-1"
+                            data-video-src="https://files.catbox.moe/9bqdch.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Salut D'amour</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/n0xaj0.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <!-- Video 2 -->
-                    <div class="video-card" data-video="song-2" data-video-src="https://files.catbox.moe/qxgekq.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Feels So Good</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/ru8owk.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <!-- Video 2 -->
+                        <div class="video-card" data-video="song-2"
+                            data-video-src="https://files.catbox.moe/qxgekq.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Feels So Good</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/ru8owk.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <!-- Video 3 -->
-                    <div class="video-card" data-video="song-3" data-video-src="https://files.catbox.moe/aj36lv.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Allouette</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/l337ni.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <!-- Video 3 -->
+                        <div class="video-card" data-video="song-3"
+                            data-video-src="https://files.catbox.moe/aj36lv.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Allouette</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/l337ni.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <!-- Video 4 -->
-                    <div class="video-card" data-video="song-4" data-video-src="https://files.catbox.moe/ilfxb6.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Blumenlied</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/mh9zyt.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <!-- Video 4 -->
+                        <div class="video-card" data-video="song-4"
+                            data-video-src="https://files.catbox.moe/ilfxb6.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Blumenlied</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/mh9zyt.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-5" data-video-src="https://files.catbox.moe/lzr6cm.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">The Swan</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/hxcf3v.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-5"
+                            data-video-src="https://files.catbox.moe/lzr6cm.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">The Swan</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/hxcf3v.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-7" data-video-src="https://files.catbox.moe/vdbmf4.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Sarabande</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/z0x33u.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-7"
+                            data-video-src="https://files.catbox.moe/vdbmf4.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Sarabande</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/z0x33u.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-8" data-video-src="https://files.catbox.moe/4faiuu.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Danny Boy</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/w7blo2.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-8"
+                            data-video-src="https://files.catbox.moe/4faiuu.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Danny Boy</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/w7blo2.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-9" data-video-src="https://files.catbox.moe/emtw2q.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Moon River</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/yn2gsv.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-9"
+                            data-video-src="https://files.catbox.moe/emtw2q.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Moon River</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/yn2gsv.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-10" data-video-src="https://files.catbox.moe/gbabsx.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Somewhere Over The Rainbow</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/gx7uzy.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-10"
+                            data-video-src="https://files.catbox.moe/gbabsx.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Somewhere Over The Rainbow</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/gx7uzy.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-11" data-video-src="https://files.catbox.moe/6fcmdm.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Married Life</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/bretam.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-11"
+                            data-video-src="https://files.catbox.moe/6fcmdm.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Married Life</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/bretam.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-12" data-video-src="https://files.catbox.moe/rrac90.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">New York, New York</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/gk78hy.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-12"
+                            data-video-src="https://files.catbox.moe/rrac90.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">New York, New York</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/gk78hy.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-13" data-video-src="https://files.catbox.moe/0vc63f.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Flower Duet</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/v0iin0.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-13"
+                            data-video-src="https://files.catbox.moe/0vc63f.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Flower Duet</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/v0iin0.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-14" data-video-src="https://files.catbox.moe/nu3zux.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Imagine</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/kjeczg.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-14"
+                            data-video-src="https://files.catbox.moe/nu3zux.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Imagine</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/kjeczg.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-15" data-video-src="https://files.catbox.moe/k85i1s.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Swan Lake</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/8jt5fh.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-15"
+                            data-video-src="https://files.catbox.moe/k85i1s.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Swan Lake</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/8jt5fh.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-16" data-video-src="https://files.catbox.moe/4tvv99.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Basin Street Blues</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/qstnxk.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-16"
+                            data-video-src="https://files.catbox.moe/4tvv99.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Basin Street Blues</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/qstnxk.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-17" data-video-src="https://files.catbox.moe/ncpn54.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Beethoven Cello Sonata</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/88bqqd.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-17"
+                            data-video-src="https://files.catbox.moe/ncpn54.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Beethoven Cello Sonata</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/88bqqd.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-18" data-video-src="https://files.catbox.moe/jf63at.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">City of Stars</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/z8x5as.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-18"
+                            data-video-src="https://files.catbox.moe/jf63at.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">City of Stars</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/z8x5as.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-19" data-video-src="https://files.catbox.moe/pgdf60.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Nocturne Op. 9 No. 2</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/z2q9nu.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-19"
+                            data-video-src="https://files.catbox.moe/pgdf60.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Nocturne Op. 9 No. 2</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/z2q9nu.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-20" data-video-src="https://files.catbox.moe/5mbz98.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">La Vie En Rose</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/hyi25s.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-20"
+                            data-video-src="https://files.catbox.moe/5mbz98.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">La Vie En Rose</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/hyi25s.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-21" data-video-src="https://files.catbox.moe/gau77t.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Austin's Song</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/12z68o.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-21"
+                            data-video-src="https://files.catbox.moe/gau77t.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Austin's Song</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/12z68o.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-22" data-video-src="https://files.catbox.moe/z4fmmr.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Caravan</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/mzpb91.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-22"
+                            data-video-src="https://files.catbox.moe/z4fmmr.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Caravan</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/mzpb91.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-23" data-video-src="https://files.catbox.moe/4z7zto.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Fantaisie Impromptu</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/n1pjae.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-23"
+                            data-video-src="https://files.catbox.moe/4z7zto.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Fantaisie Impromptu</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/n1pjae.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <div class="video-card" data-video="song-24" data-video-src="https://files.catbox.moe/vrfp04.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">Edelweiss</div>
-                        </div>
-                        <div class="video-thumbnail">
-                            <img src="https://files.catbox.moe/ryqwj5.jpg" alt="Amazing Grace" loading="lazy">
-                            <div class="video-placeholder">
-                                <span class="video-placeholder-icon">🎵</span>
-                                <span>Add Thumbnail</span>
+                        <div class="video-card" data-video="song-24"
+                            data-video-src="https://files.catbox.moe/vrfp04.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Edelweiss</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://files.catbox.moe/ryqwj5.jpg" alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
                             </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
-                        </div>
-                    </div>
 
-                    <!--
-                    ============================================================
-                    COPY THIS TEMPLATE TO ADD MORE VIDEOS:
-                    ============================================================
-                    
-                    <div class="video-card" data-video="song-X" data-video-src="videos/YOUR-VIDEO.mp4">
-                        <button class="video-close-btn" aria-label="Close">×</button>
-                        <div class="video-title-bar">
-                            <div class="video-title">YOUR SONG TITLE</div>
+                        <div class="video-card" data-video="song-25"
+                            data-video-src="https://files.catbox.moe/mpvvjs.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">All of Me</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/PqHgHC49/All_of_Me.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
                         </div>
-                        <div class="video-thumbnail">
-                            <img src="thumbnails/YOUR-THUMBNAIL.jpg" alt="YOUR SONG TITLE" loading="lazy">
+
+                        <div class="video-card" data-video="song-26"
+                            data-video-src="https://files.catbox.moe/tawqdp.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Auld Lang Syne</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/8CG2G74Q/Auld_Lang_Syne.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
                         </div>
-                        <div class="video-play-overlay">
-                            <div class="video-play-btn"></div>
+
+                        <div class="video-card" data-video="song-27"
+                            data-video-src="https://files.catbox.moe/s58ov8.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Charlie Brown Christmas Medley</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/g0pCpxsP/Charlie_Brown_Christmas_Medley.jpg"
+                                    alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
                         </div>
+
+                        <div class="video-card" data-video="song-28"
+                            data-video-src="https://files.catbox.moe/vifeb5.MP4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">First Noel</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/MGwCwn5S/First_Noel.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-video="song-29"
+                            data-video-src="https://files.catbox.moe/erzwaj.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Frosty The Snowman</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/7L4F459r/Frosty_the_Snowman.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-video="song-30"
+                            data-video-src="https://files.catbox.moe/ew89px.MOV">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">God Rest Ye Merry Gentlemen</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/431rxXLM/God_Rest_Ye_Merry_Gentlemen.jpg"
+                                    alt="Amazing Grace" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-video="song-31"
+                            data-video-src="https://files.catbox.moe/247soj.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Hey Jude</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/CK4WxwP9/Hey_Jude.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-video="song-32"
+                            data-video-src="https://files.catbox.moe/ygleou.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">In The Bleak Midwinter</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/W47Q1sWC/In_The_Bleak_Midwinter.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-video="song-33"
+                            data-video-src="https://files.catbox.moe/93qp06.MP4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Lean On Me</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/vmvpZGqp/Lean_On_Me.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-video="song-34"
+                            data-video-src="https://files.catbox.moe/ixp0ik.MP4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Silent Night</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/HLtfkTv1/Silent_Night.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-video="song-35"
+                            data-video-src="https://files.catbox.moe/suk140.MOV">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">Too Little Too Late</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="https://i.postimg.cc/mrS0gTpf/Too_Little_Too_Late.jpg" alt="Amazing Grace"
+                                    loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+
+                        <!--
+                        ============================================================
+                        COPY THIS TEMPLATE TO ADD MORE VIDEOS:
+                        ============================================================
+                        
+                        <div class="video-card" data-video="song-X" data-video-src="videos/YOUR-VIDEO.mp4">
+                            <button class="video-close-btn" aria-label="Close">×</button>
+                            <div class="video-title-bar">
+                                <div class="video-title">YOUR SONG TITLE</div>
+                            </div>
+                            <div class="video-thumbnail">
+                                <img src="thumbnails/YOUR-THUMBNAIL.jpg" alt="YOUR SONG TITLE" loading="lazy">
+                            </div>
+                            <div class="video-play-overlay">
+                                <div class="video-play-btn"></div>
+                            </div>
+                        </div>
+                        
+                        ============================================================
+                        -->
                     </div>
-                    
-                    ============================================================
-                    -->
-                </div>
+                </div> <!-- NEW WRAPPER END: Closes gallery-content-layout -->
             </div>
         </section>
 
@@ -2228,10 +2719,13 @@
                     <div class="contact-card">
                         <span class="section-label">Get in Touch</span>
                         <h2 class="section-title">Contact Us</h2>
-                        <p>Want to learn more about Barlow CTM or invite us to perform? Reach out through our Instagram!</p>
-                        <a href="https://instagram.com/barlowctm" target="_blank" rel="noopener noreferrer" class="instagram-contact-link">
+                        <p>Want to learn more about Barlow CTM or invite us to perform? Reach out through our Instagram!
+                        </p>
+                        <a href="https://instagram.com/barlowctm" target="_blank" rel="noopener noreferrer"
+                            class="instagram-contact-link">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                             </svg>
                             Follow @barlowctm
                         </a>
@@ -2246,21 +2740,24 @@
                                 <div class="founder-icon">CH</div>
                                 <div class="founder-info">
                                     <div class="founder-name">Carolyn Hopstaken</div>
-                                    <a href="mailto:carolyn.hopstaken@er9.org" class="founder-email">carolyn.hopstaken@er9.org</a>
+                                    <a href="mailto:carolyn.hopstaken@er9.org"
+                                        class="founder-email">carolyn.hopstaken@er9.org</a>
                                 </div>
                             </div>
                             <div class="founder-item">
                                 <div class="founder-icon">AM</div>
                                 <div class="founder-info">
                                     <div class="founder-name">Alisen McTague</div>
-                                    <a href="mailto:alisen.mctague@er9.org" class="founder-email">alisen.mctague@er9.org</a>
+                                    <a href="mailto:alisen.mctague@er9.org"
+                                        class="founder-email">alisen.mctague@er9.org</a>
                                 </div>
                             </div>
                             <div class="founder-item">
                                 <div class="founder-icon">MK</div>
                                 <div class="founder-info">
                                     <div class="founder-name">Mackenzie Kassner</div>
-                                    <a href="mailto:mackenzie.kassner@er9.org" class="founder-email">mackenzie.kassner@er9.org</a>
+                                    <a href="mailto:mackenzie.kassner@er9.org"
+                                        class="founder-email">mackenzie.kassner@er9.org</a>
                                 </div>
                             </div>
                         </div>
@@ -2273,9 +2770,11 @@
         <section id="social" class="social">
             <div class="section-inner visible">
                 <div class="social-wrapper">
-                    <a href="https://instagram.com/barlowctm" target="_blank" rel="noopener noreferrer" class="instagram-link" aria-label="Follow us on Instagram">
+                    <a href="https://instagram.com/barlowctm" target="_blank" rel="noopener noreferrer"
+                        class="instagram-link" aria-label="Follow us on Instagram">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                         </svg>
                     </a>
                     <div class="social-text">
@@ -2408,7 +2907,7 @@
                 const thumbnail = currentExpandedVideo.querySelector('.video-thumbnail');
                 const videoSrc = currentExpandedVideo.dataset.videoSrc;
                 const title = currentExpandedVideo.querySelector('.video-title').textContent;
-                
+
                 if (thumbnail && videoSrc && video) {
                     const imgSrc = thumbnail.querySelector('img')?.dataset.originalSrc;
                     if (imgSrc) {
@@ -2527,13 +3026,13 @@
                     // Store original thumbnail src
                     const existingImg = thumbnail.querySelector('img');
                     const originalSrc = existingImg?.src || '';
-                    
+
                     // Replace thumbnail with video
                     thumbnail.innerHTML = `<video controls autoplay>
                         <source src="${videoSrc}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>`;
-                    
+
                     // Store original src for later
                     if (originalSrc) {
                         thumbnail.dataset.originalSrc = originalSrc;
@@ -2588,7 +3087,7 @@
         // ==========================================
 
         // Helper to add a new bubble to the About section
-        window.addAboutBubble = function(config) {
+        window.addAboutBubble = function (config) {
             const bubblesContainer = document.getElementById('aboutBubbles');
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
@@ -2601,7 +3100,7 @@
         };
 
         // Helper to add a new member to the Team section
-        window.addTeamMember = function(config) {
+        window.addTeamMember = function (config) {
             const teamGrid = document.getElementById('teamGrid');
             const memberId = config.name.toLowerCase().replace(/\s+/g, '-');
 
@@ -2620,9 +3119,9 @@
                 <button class="member-close-btn" aria-label="Close">×</button>
                 <div class="member-photo">
                     ${config.photo
-                        ? `<img src="${config.photo}" alt="${config.name}" loading="lazy">`
-                        : '<div class="member-photo-placeholder">👤</div>'
-                    }
+                    ? `<img src="${config.photo}" alt="${config.name}" loading="lazy">`
+                    : '<div class="member-photo-placeholder">👤</div>'
+                }
                 </div>
                 <div class="member-info">
                     <div class="member-name">${config.name}</div>
@@ -2670,7 +3169,7 @@
          * - thumbnail: Path to compressed thumbnail image (for fast loading)
          * ============================================================
          */
-        window.addGalleryVideo = function(config) {
+        window.addGalleryVideo = function (config) {
             const galleryGrid = document.getElementById('galleryGrid');
 
             const card = document.createElement('div');
@@ -2684,12 +3183,12 @@
                 </div>
                 <div class="video-thumbnail">
                     ${config.thumbnail
-                        ? `<img src="${config.thumbnail}" alt="${config.title}" loading="lazy" data-original-src="${config.thumbnail}">`
-                        : `<div class="video-placeholder">
+                    ? `<img src="${config.thumbnail}" alt="${config.title}" loading="lazy" data-original-src="${config.thumbnail}">`
+                    : `<div class="video-placeholder">
                             <span class="video-placeholder-icon">🎵</span>
                             <span>Video Thumbnail</span>
                         </div>`
-                    }
+                }
                 </div>
                 <div class="video-play-overlay">
                     <div class="video-play-btn"></div>
@@ -2767,11 +3266,11 @@
                 if (videoSrc && thumbnail) {
                     const existingImg = thumbnail.querySelector('img');
                     const originalSrc = existingImg?.src || '';
-                    
+
                     thumbnail.innerHTML = `<video controls autoplay>
                         <source src="${videoSrc}" type="video/mp4">
                     </video>`;
-                    
+
                     if (originalSrc) {
                         thumbnail.dataset.originalSrc = originalSrc;
                     }
@@ -2786,4 +3285,5 @@
         }
     </script>
 </body>
+
 </html>
