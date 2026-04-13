@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -883,6 +882,15 @@
             background: #000;
         }
 
+        /* Iframe sandbox — contained within .video-thumbnail */
+        .video-thumbnail iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+            background: #000;
+        }
+
         .video-placeholder {
             width: 100%;
             height: 100%;
@@ -898,6 +906,7 @@
             font-size: 2rem;
         }
 
+        /* --- Play Overlay --- */
         .video-play-overlay {
             position: absolute;
             inset: 0;
@@ -916,6 +925,16 @@
         }
 
         .video-card.expanded .video-play-overlay {
+            display: none;
+        }
+
+        /* --- Playing state: hide thumbnail content, show injected media --- */
+        .video-card.playing .video-thumbnail img,
+        .video-card.playing .video-thumbnail .video-placeholder {
+            display: none;
+        }
+
+        .video-card.playing .video-play-overlay {
             display: none;
         }
 
@@ -1594,7 +1613,6 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Feels So Good</span>
                                     <span class="song-tag" data-song="song-12">New York, New York</span>
                                     <span class="song-tag" data-song="song-16">Basin Street Blues</span>
                                     <span class="song-tag" data-song="song-22">Caravan</span>
@@ -1605,6 +1623,7 @@
                                     <span class="song-tag" data-song="song-31">Hey Jude</span>
                                     <span class="song-tag" data-song="song-33">Lean On Me</span>
                                     <span class="song-tag" data-song="song-34">Silent Night</span>
+                                    <span class="song-tag" data-song="song-35">Across the Smoky Harbor</span>
                                 </div>
                             </div>
                         </div>
@@ -1625,7 +1644,6 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-2">Feels So Good</span>
                                     <span class="song-tag" data-song="song-12">New York, New York</span>
                                     <span class="song-tag" data-song="song-18">City of Stars</span>
                                     <span class="song-tag" data-song="song-14">Imagine</span>
@@ -1633,6 +1651,8 @@
                                     <span class="song-tag" data-song="song-22">Caravan</span>
                                     <span class="song-tag" data-song="song-21">Austin's Song</span>
                                     <span class="song-tag" data-song="song-20">La Vie En Rose</span>
+                                    <span class="song-tag" data-song="song-35">Across the Smoky Harbor</span>
+
                                 </div>
                             </div>
                         </div>
@@ -1744,7 +1764,6 @@
                             <div class="member-songs">
                                 <div class="member-songs-label">Featured In</div>
                                 <div class="member-songs-list">
-                                    <span class="song-tag" data-song="song-1">Salut D'amour</span>
                                     <span class="song-tag" data-song="song-5">The Swan</span>
                                     <span class="song-tag" data-song="song-7">Sarabande</span>
                                     <span class="song-tag" data-song="song-9">Moon River</span>
@@ -2041,65 +2060,8 @@
                     </div>
 
                     <div class="gallery-grid" id="galleryGrid">
-                        <!--
-                        ============================================================
-                        HOW TO ADD VIDEOS:
-                        ============================================================
-                        For each video, copy this template and fill in:
-                        1. data-video: A unique ID (e.g., "song-1", "song-2")
-                        2. data-video-src: Path to your video file (e.g., "videos/amazing-grace.mp4")
-                        3. Video title in the .video-title div
-                        4. Thumbnail image path in the img src (use a compressed frame from the video)
-                        
-                        THUMBNAIL TIPS FOR FAST LOADING:
-                        - Extract a frame from your video
-                        - Compress it to ~100KB or less (use tinypng.com or similar)
-                        - Save as JPG at 80% quality, around 640x360 pixels
-                        - Name it to match the video (e.g., "amazing-grace-thumb.jpg")
-                        ============================================================
-                        -->
-
-                        <!-- Video 1 - Example with thumbnail -->
-                        <div class="video-card" data-video="song-1"
-                            data-video-src="https://files.catbox.moe/9bqdch.mp4">
-                            <button class="video-close-btn" aria-label="Close">×</button>
-                            <div class="video-title-bar">
-                                <div class="video-title">Salut D'amour</div>
-                            </div>
-                            <div class="video-thumbnail">
-                                <img src="https://files.catbox.moe/n0xaj0.jpg" alt="Amazing Grace" loading="lazy">
-                                <div class="video-placeholder">
-                                    <span class="video-placeholder-icon">🎵</span>
-                                    <span>Add Thumbnail</span>
-                                </div>
-                            </div>
-                            <div class="video-play-overlay">
-                                <div class="video-play-btn"></div>
-                            </div>
-                        </div>
-
-                        <!-- Video 2 -->
-                        <div class="video-card" data-video="song-2"
-                            data-video-src="https://files.catbox.moe/qxgekq.mp4">
-                            <button class="video-close-btn" aria-label="Close">×</button>
-                            <div class="video-title-bar">
-                                <div class="video-title">Feels So Good</div>
-                            </div>
-                            <div class="video-thumbnail">
-                                <img src="https://files.catbox.moe/ru8owk.jpg" alt="Amazing Grace" loading="lazy">
-                                <div class="video-placeholder">
-                                    <span class="video-placeholder-icon">🎵</span>
-                                    <span>Add Thumbnail</span>
-                                </div>
-                            </div>
-                            <div class="video-play-overlay">
-                                <div class="video-play-btn"></div>
-                            </div>
-                        </div>
-
-                        <!-- Video 3 -->
                         <div class="video-card" data-video="song-3"
-                            data-video-src="https://files.catbox.moe/aj36lv.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1tjwvTAN_iBJq6jVkRbIoSm7SaQH2Bk_D/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Allouette</div>
@@ -2118,7 +2080,7 @@
 
                         <!-- Video 4 -->
                         <div class="video-card" data-video="song-4"
-                            data-video-src="https://files.catbox.moe/ilfxb6.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1tgG0qWttP2sooR92WSDYv3N7n5FKR4tS/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Blumenlied</div>
@@ -2136,7 +2098,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-5"
-                            data-video-src="https://files.catbox.moe/lzr6cm.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1tCFx-aXEnw2V7ZdAg2HVP43rLD5-8emm/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">The Swan</div>
@@ -2154,7 +2116,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-7"
-                            data-video-src="https://files.catbox.moe/vdbmf4.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1u-PwHYWantHCxUv2LpwH3hF1PI2pnRJw/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Sarabande</div>
@@ -2172,7 +2134,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-8"
-                            data-video-src="https://files.catbox.moe/4faiuu.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1u3nVqNvOi8zo_sDz2BQByh0nR4-A_LhJ/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Danny Boy</div>
@@ -2190,7 +2152,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-9"
-                            data-video-src="https://files.catbox.moe/emtw2q.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1tzsaGNph3jOUw0QBdWDDDloySyqxDNSl/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Moon River</div>
@@ -2208,7 +2170,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-10"
-                            data-video-src="https://files.catbox.moe/gbabsx.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1GH3fZkM94m9Hf3oZbPAoDgWAl_hG1z4Q/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Somewhere Over The Rainbow</div>
@@ -2226,7 +2188,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-11"
-                            data-video-src="https://files.catbox.moe/6fcmdm.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1mvtK3YJzZj036I-D1_jHG2kZyZV9CgWE/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Married Life</div>
@@ -2244,7 +2206,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-12"
-                            data-video-src="https://files.catbox.moe/rrac90.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1s69Iqu6qopAVKwh9NIHdU19X1jKs6-iq/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">New York, New York</div>
@@ -2262,7 +2224,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-13"
-                            data-video-src="https://files.catbox.moe/0vc63f.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1jeIcj38HOus1TAq3C11Gx9SupIFm0GnJ/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Flower Duet</div>
@@ -2280,7 +2242,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-14"
-                            data-video-src="https://files.catbox.moe/nu3zux.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1jswiaPKBdCeJrP5bWd7TeR-0Xi_HyMsL/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Imagine</div>
@@ -2298,7 +2260,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-15"
-                            data-video-src="https://files.catbox.moe/k85i1s.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1jXkJXlCX_WugSCkzH2y1z7gBUbpv4yQU/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Swan Lake</div>
@@ -2316,7 +2278,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-16"
-                            data-video-src="https://files.catbox.moe/4tvv99.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1jo5R_AF28DuIKh_tpiQJCMaRwmvTUubJ/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Basin Street Blues</div>
@@ -2334,7 +2296,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-17"
-                            data-video-src="https://files.catbox.moe/ncpn54.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1jdaf0hdRsjxiAX30kEg64jygJUC-ECyV/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Beethoven Cello Sonata</div>
@@ -2352,7 +2314,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-18"
-                            data-video-src="https://files.catbox.moe/jf63at.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1j96MJ9CXlT4eKTGNjuy7bW_ZTK6x6tAA/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">City of Stars</div>
@@ -2370,7 +2332,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-19"
-                            data-video-src="https://files.catbox.moe/pgdf60.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1j8OMby1jmj7Sv8p6nrXZ_H9vDUFqYXIy/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Nocturne Op. 9 No. 2</div>
@@ -2388,7 +2350,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-20"
-                            data-video-src="https://files.catbox.moe/5mbz98.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1iIU_N5fLfq4DzgRvYrMDACwWnQPGaIY3/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">La Vie En Rose</div>
@@ -2406,7 +2368,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-21"
-                            data-video-src="https://files.catbox.moe/gau77t.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1iSWY4_8BIbrfNO3yYGl4Env52LqzoqnZ/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Austin's Song</div>
@@ -2424,7 +2386,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-22"
-                            data-video-src="https://files.catbox.moe/z4fmmr.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1iSCcJOkFdheC_sOIWzm6s4Hcl-C7CXgd/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Caravan</div>
@@ -2442,7 +2404,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-23"
-                            data-video-src="https://files.catbox.moe/4z7zto.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1iluTFVzEM32B02jKAVc84MEA-Df4M81W/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Fantaisie Impromptu</div>
@@ -2460,7 +2422,7 @@
                         </div>
 
                         <div class="video-card" data-video="song-24"
-                            data-video-src="https://files.catbox.moe/vrfp04.mp4">
+                            data-video-embed="https://drive.google.com/file/d/1jOIbRcgEqoWEVI1JKh0q7Z7bgziBPp1s/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">Edelweiss</div>
@@ -2668,14 +2630,13 @@
                         </div>
 
                         <div class="video-card" data-video="song-35"
-                            data-video-src="https://files.catbox.moe/suk140.MOV">
+                            data-video-embed="https://drive.google.com/file/d/1BB31eJh1TTeMw5NHwXtlHB-YFeTCE2MD/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
-                                <div class="video-title">Too Little Too Late</div>
+                                <div class="video-title">Across the Smoky Harbor</div>
                             </div>
                             <div class="video-thumbnail">
-                                <img src="https://i.postimg.cc/mrS0gTpf/Too_Little_Too_Late.jpg" alt="Amazing Grace"
-                                    loading="lazy">
+                                <img src="https://files.catbox.moe/3vxilv.jpg" loading="lazy">
                                 <div class="video-placeholder">
                                     <span class="video-placeholder-icon">🎵</span>
                                     <span>Add Thumbnail</span>
@@ -2685,19 +2646,31 @@
                                 <div class="video-play-btn"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <!--
+                    <!--
                         ============================================================
                         COPY THIS TEMPLATE TO ADD MORE VIDEOS:
                         ============================================================
                         
-                        <div class="video-card" data-video="song-X" data-video-src="videos/YOUR-VIDEO.mp4">
+                        OPTION A — Direct .mp4 link (Catbox, etc.):
+                        <div class="video-card" data-video="song-X" data-video-src="YOUR-VIDEO.mp4">
+                            ...
+                        </div>
+                        
+                        OPTION B — Google Drive iframe (/preview URL):
+                        <div class="video-card" data-video="song-X"
+                             data-video-embed="https://drive.google.com/file/d/FILE_ID/preview">
                             <button class="video-close-btn" aria-label="Close">×</button>
                             <div class="video-title-bar">
                                 <div class="video-title">YOUR SONG TITLE</div>
                             </div>
                             <div class="video-thumbnail">
                                 <img src="thumbnails/YOUR-THUMBNAIL.jpg" alt="YOUR SONG TITLE" loading="lazy">
+                                <div class="video-placeholder">
+                                    <span class="video-placeholder-icon">🎵</span>
+                                    <span>Add Thumbnail</span>
+                                </div>
                             </div>
                             <div class="video-play-overlay">
                                 <div class="video-play-btn"></div>
@@ -2706,8 +2679,8 @@
                         
                         ============================================================
                         -->
-                    </div>
-                </div> <!-- NEW WRAPPER END: Closes gallery-content-layout -->
+                </div>
+            </div> <!-- NEW WRAPPER END: Closes gallery-content-layout -->
             </div>
         </section>
 
@@ -2891,28 +2864,36 @@
             }
         }
 
-        // Close expanded video card
+        // Close expanded video card — handles both <video> and <iframe>
         function closeExpandedVideo() {
             if (currentExpandedVideo) {
                 currentExpandedVideo.classList.remove('expanded');
+                currentExpandedVideo.classList.remove('playing');
                 galleryGrid.classList.remove('has-expanded');
 
-                // Pause video if playing
-                const video = currentExpandedVideo.querySelector('video');
+                // Destroy any <video> element
+                const video = currentExpandedVideo.querySelector('.video-thumbnail video');
                 if (video) {
                     video.pause();
+                    video.removeAttribute('src');
+                    video.load(); // release network resources
+                    video.remove();
                 }
 
-                // Replace video with thumbnail for faster performance
-                const thumbnail = currentExpandedVideo.querySelector('.video-thumbnail');
-                const videoSrc = currentExpandedVideo.dataset.videoSrc;
-                const title = currentExpandedVideo.querySelector('.video-title').textContent;
+                // Destroy any <iframe> element (stops Drive playback)
+                const iframe = currentExpandedVideo.querySelector('.video-thumbnail iframe');
+                if (iframe) {
+                    iframe.src = 'about:blank';
+                    iframe.remove();
+                }
 
-                if (thumbnail && videoSrc && video) {
-                    const imgSrc = thumbnail.querySelector('img')?.dataset.originalSrc;
-                    if (imgSrc) {
-                        thumbnail.innerHTML = `<img src="${imgSrc}" alt="${title}" loading="lazy" data-original-src="${imgSrc}">`;
-                    }
+                // Restore thumbnail visibility
+                const thumbnail = currentExpandedVideo.querySelector('.video-thumbnail');
+                if (thumbnail) {
+                    const img = thumbnail.querySelector('img');
+                    if (img) img.style.display = '';
+                    const placeholder = thumbnail.querySelector('.video-placeholder');
+                    if (placeholder) placeholder.style.display = '';
                 }
 
                 currentExpandedVideo = null;
@@ -2994,6 +2975,8 @@
 
         // ==========================================
         // Video Card Expansion (In-place Grid)
+        // Supports both data-video-src (.mp4) and
+        // data-video-embed (Google Drive /preview iframe)
         // ==========================================
         const videoCards = document.querySelectorAll('.video-card');
 
@@ -3017,25 +3000,31 @@
                 galleryGrid.classList.add('has-expanded');
                 currentExpandedVideo = card;
 
-                // Load and play video
-                const videoSrc = card.dataset.videoSrc;
                 const thumbnail = card.querySelector('.video-thumbnail');
-                const title = card.querySelector('.video-title').textContent;
+                const videoSrc = card.dataset.videoSrc;
+                const embedSrc = card.dataset.videoEmbed;
 
-                if (videoSrc && thumbnail) {
-                    // Store original thumbnail src
-                    const existingImg = thumbnail.querySelector('img');
-                    const originalSrc = existingImg?.src || '';
-
-                    // Replace thumbnail with video
-                    thumbnail.innerHTML = `<video controls autoplay>
-                        <source src="${videoSrc}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>`;
-
-                    // Store original src for later
-                    if (originalSrc) {
-                        thumbnail.dataset.originalSrc = originalSrc;
+                if (thumbnail) {
+                    if (embedSrc) {
+                        // --- Google Drive iframe path ---
+                        const iframe = document.createElement('iframe');
+                        iframe.src = embedSrc;
+                        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                        iframe.setAttribute('allowfullscreen', 'true');
+                        iframe.setAttribute('frameborder', '0');
+                        thumbnail.appendChild(iframe);
+                        card.classList.add('playing');
+                    } else if (videoSrc) {
+                        // --- Direct .mp4 path (legacy Catbox) ---
+                        const videoEl = document.createElement('video');
+                        videoEl.controls = true;
+                        videoEl.autoplay = true;
+                        const source = document.createElement('source');
+                        source.src = videoSrc;
+                        source.type = 'video/mp4';
+                        videoEl.appendChild(source);
+                        thumbnail.appendChild(videoEl);
+                        card.classList.add('playing');
                     }
                 }
 
@@ -3154,7 +3143,7 @@
          * ============================================================
          * Use this function to easily add videos via JavaScript.
          * 
-         * Example:
+         * OPTION A — Direct .mp4:
          * addGalleryVideo({
          *     id: 'song-5',
          *     title: 'Somewhere Over the Rainbow',
@@ -3162,10 +3151,19 @@
          *     thumbnail: 'thumbnails/somewhere-over-the-rainbow-thumb.jpg'
          * });
          * 
+         * OPTION B — Google Drive iframe:
+         * addGalleryVideo({
+         *     id: 'song-36',
+         *     title: 'My Song',
+         *     embed: 'https://drive.google.com/file/d/FILE_ID/preview',
+         *     thumbnail: 'thumbnails/my-song-thumb.jpg'
+         * });
+         * 
          * Parameters:
          * - id: Unique identifier (used for song tag navigation)
          * - title: Display title for the video
-         * - videoSrc: Path to your video file
+         * - videoSrc: (Option A) Path to your .mp4 file
+         * - embed: (Option B) Google Drive /preview URL
          * - thumbnail: Path to compressed thumbnail image (for fast loading)
          * ============================================================
          */
@@ -3175,7 +3173,11 @@
             const card = document.createElement('div');
             card.className = 'video-card';
             card.dataset.video = config.id;
-            card.dataset.videoSrc = config.videoSrc || '';
+            if (config.embed) {
+                card.dataset.videoEmbed = config.embed;
+            } else if (config.videoSrc) {
+                card.dataset.videoSrc = config.videoSrc;
+            }
             card.innerHTML = `
                 <button class="video-close-btn" aria-label="Close">×</button>
                 <div class="video-title-bar">
@@ -3183,7 +3185,7 @@
                 </div>
                 <div class="video-thumbnail">
                     ${config.thumbnail
-                    ? `<img src="${config.thumbnail}" alt="${config.title}" loading="lazy" data-original-src="${config.thumbnail}">`
+                    ? `<img src="${config.thumbnail}" alt="${config.title}" loading="lazy">`
                     : `<div class="video-placeholder">
                             <span class="video-placeholder-icon">🎵</span>
                             <span>Video Thumbnail</span>
@@ -3248,7 +3250,7 @@
             });
         }
 
-        // Attach video card listeners
+        // Attach video card listeners (for dynamically added cards)
         function attachVideoCardListeners(card) {
             card.addEventListener('click', (e) => {
                 if (e.target.classList.contains('video-close-btn')) return;
@@ -3259,20 +3261,29 @@
                 galleryGrid.classList.add('has-expanded');
                 currentExpandedVideo = card;
 
-                // Load video
-                const videoSrc = card.dataset.videoSrc;
                 const thumbnail = card.querySelector('.video-thumbnail');
+                const videoSrc = card.dataset.videoSrc;
+                const embedSrc = card.dataset.videoEmbed;
 
-                if (videoSrc && thumbnail) {
-                    const existingImg = thumbnail.querySelector('img');
-                    const originalSrc = existingImg?.src || '';
-
-                    thumbnail.innerHTML = `<video controls autoplay>
-                        <source src="${videoSrc}" type="video/mp4">
-                    </video>`;
-
-                    if (originalSrc) {
-                        thumbnail.dataset.originalSrc = originalSrc;
+                if (thumbnail) {
+                    if (embedSrc) {
+                        const iframe = document.createElement('iframe');
+                        iframe.src = embedSrc;
+                        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                        iframe.setAttribute('allowfullscreen', 'true');
+                        iframe.setAttribute('frameborder', '0');
+                        thumbnail.appendChild(iframe);
+                        card.classList.add('playing');
+                    } else if (videoSrc) {
+                        const videoEl = document.createElement('video');
+                        videoEl.controls = true;
+                        videoEl.autoplay = true;
+                        const source = document.createElement('source');
+                        source.src = videoSrc;
+                        source.type = 'video/mp4';
+                        videoEl.appendChild(source);
+                        thumbnail.appendChild(videoEl);
+                        card.classList.add('playing');
                     }
                 }
             });
